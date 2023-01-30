@@ -25,10 +25,17 @@ A list of features the application will include:
 
 Possible Extra Features:
 - An included step-by-step tutorial to teach you how to solve a [3x3] Rubik's Cube.
-- Include multiple different algorithms through which the Cube can be solved. This will be useful for users trying to learn different ways to solve the [3x3] rubik's cube such as the<br>
-  blindfolded method. We can also compare the efficiency of the different algorithms.
+- Include multiple different algorithms through which the Cube can be solved. This will be useful for users trying to
+  learn different ways to solve the [3x3] rubik's cube such as the blindfolded method. We can also compare the efficiency of the different algorithms.
 
 
+## User Stories:
+
+- As a user, I want to be able to add the current scramble and solution to my history of previous scrambles. 
+- As a user, I want to be able to rotate the on-screen cube to show any face I want. 
+- As a user, I want to be able to step through the solution and have the on-screen cube also update accordingly, so I can  
+  verify if I am following the solution correctly. 
+- As a user, I want to be able to save my scrambles to come back  to at anytime. 
+- As a user, I want the interface to be simple, informative, and customizable to an extent. 
 
 
-An example of text with **bold** and *italic* fonts.  
