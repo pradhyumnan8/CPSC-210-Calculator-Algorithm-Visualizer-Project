@@ -1,21 +1,35 @@
 package ui;
 
 import model.ExpressionEvaluator;
+import model.ExpressionNode;
 import model.ListNode;
 import model.SingleLinkedList;
 
 public class Main {
 
     public static void main(String[] args) {
-        Input userInput = new Input();
-       // ExpressionEvaluator calculator = new ExpressionEvaluator();
-        String expression;
+        SingleLinkedList<ExpressionNode> infixTest = new SingleLinkedList<>();
+        ExpressionNode temp = infixTest.getHead().getNext();
 
-        expression = userInput.getExpression();
+        temp.setOperand(4);
+        temp.setOperator('+');
+
+        System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getOperand());
+        System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getOperator());
+
+       /* System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getNext().getOperand());
+        System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getNext().getOperator());*/
     }
 }
 
 
+//============================================================================
+//TESTING EXPRESSION VALIDATION
+        /*Input userInput = new Input();
+       // ExpressionEvaluator calculator = new ExpressionEvaluator();
+        String expression;
+
+        expression = userInput.getExpression();*/
 //============================================================================
 //JAVA CHARACTER & STRING TEST
 /*String testString = "123";

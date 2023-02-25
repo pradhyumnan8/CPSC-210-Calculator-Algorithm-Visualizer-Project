@@ -5,7 +5,7 @@ import java.util.List;
 public class SingleLinkedList<Thing> {
 
     protected ListNode<Thing> head;
-    private int listCount;
+    protected int listCount;
 
     public SingleLinkedList() {
         this.head = new ListNode<Thing>();

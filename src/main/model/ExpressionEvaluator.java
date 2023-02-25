@@ -57,12 +57,9 @@ public class ExpressionEvaluator {
     }
 
 
-    public void toInfix(String userExpression) {
-        ExpressionNode temp = new ExpressionNode();
-
-        temp = infixList.getHead();
-
-    }
+   /* public void toInfix(String userExpression) {
+        ExpressionNode temp = (ExpressionNode) infixList.getHead().getNext();
+    }*/
 
 
 }
