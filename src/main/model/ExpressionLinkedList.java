@@ -65,6 +65,11 @@ public class ExpressionLinkedList {
     //deletes and returns the node after head if specified
     public ExpressionNode deleteAfterHead(boolean shouldReturn) {
         ExpressionNode temp = head.getNext();
+
+        if (this.isEmpty()) {
+            return null;
+        }
+
         head.setNext(head.getNext().getNext());
         listCount--;
 

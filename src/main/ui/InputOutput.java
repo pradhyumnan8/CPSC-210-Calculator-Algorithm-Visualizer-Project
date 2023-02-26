@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 
 //prompts for and accepts input from user
-public class Input {
+public class InputOutput {
 
-    public String getExpression() {
+    public String scanExpression() {
         Scanner input = new Scanner(System.in);
         ExpressionEvaluator expressionValidator = new ExpressionEvaluator();
         String expression;
@@ -26,4 +26,15 @@ public class Input {
 
         return expression;
     }
+
+    private void printHistory () {
+
+    }
+
+    public void Menu() {
+        int i = 0;
+        System.out.println("select from the ");
+    }
+
+
 }

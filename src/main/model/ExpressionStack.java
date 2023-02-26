@@ -7,7 +7,7 @@ public class ExpressionStack extends ExpressionLinkedList {
 
     public ExpressionStack() {
         this.topIndex = -1;
-        this.top = head;
+        this.top = head.getNext();
 
         head.setOperator('h');
         head.setOperand(-99);
@@ -48,7 +48,8 @@ public class ExpressionStack extends ExpressionLinkedList {
 
     @Override
     public boolean isEmpty() {
-        return topIndex == -1;
+        //return topIndex == -1;
+        return head.getNext() == null;
     }
 
     //WARNING TO DELETE
