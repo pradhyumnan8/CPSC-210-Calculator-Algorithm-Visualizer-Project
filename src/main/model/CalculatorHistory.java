@@ -1,9 +1,15 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class CalculatorHistory {
-    private ArrayList<Calculation> calculations;
+    public ArrayList<Calculation> calculations;
+
+    public CalculatorHistory() {
+       // Calculation tempCalculation = new Calculation("test", 0.0);
+       // calculations.add(0, tempCalculation);
+    }
 
     public ArrayList<Calculation> getCalculations() {
         return calculations;

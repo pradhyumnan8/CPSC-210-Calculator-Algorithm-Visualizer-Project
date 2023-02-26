@@ -246,7 +246,11 @@ public class ExpressionEvaluator {
         this.evaluate();
 
         Calculation thisCalculation = new Calculation(userExpression, res);
-        history.addCalculation(thisCalculation);
+
+//        System.out.println(thisCalculation.getExpression());
+//        System.out.println(thisCalculation.getResult());
+
+        //history.addCalculation(thisCalculation);
         //infixList.printList();
         //postfixList.printList();
         //System.out.println(res);
