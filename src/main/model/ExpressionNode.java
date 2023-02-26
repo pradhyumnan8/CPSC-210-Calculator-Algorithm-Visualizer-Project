@@ -1,13 +1,25 @@
 package model;
 
-public class ExpressionNode extends ListNode {
+public class ExpressionNode {
 
     private ExpressionNode next;
     private double operand;
     private char operator;
 
 
-    @Override
+
+    public ExpressionNode() {
+        this.operator = '$';
+        this.operand = 0;
+        this.next = null;
+    }
+
+    public ExpressionNode(double operand, char operator) {
+        this.operator = operator;
+        this.operand = operand;
+        this.next = null;
+    }
+
     public ExpressionNode getNext() {
         return next;
     }

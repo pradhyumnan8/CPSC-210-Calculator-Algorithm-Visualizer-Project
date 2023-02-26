@@ -2,7 +2,7 @@ package model;
 
 public class ExpressionEvaluator {
 
-    private SingleLinkedList<ExpressionNode> infixList = new SingleLinkedList();
+    private ExpressionLinkedList infixList = new ExpressionLinkedList();
 
     //checks if given character is an operator
     public boolean isOperator(char character) {
@@ -63,12 +63,3 @@ public class ExpressionEvaluator {
 
 
 }
-
-//WARNING TO DELETE
- /*public boolean isValid(char character) {
-        if ( isOperator(character) || isNumber(character) || (character == '')) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/

@@ -1,14 +1,48 @@
 package ui;
 
-import model.ExpressionEvaluator;
-import model.ExpressionNode;
-import model.ListNode;
-import model.SingleLinkedList;
+import model.ExpressionLinkedList;
+import model.ExpressionStack;
 
 public class Main {
 
     public static void main(String[] args) {
-        SingleLinkedList<ExpressionNode> infixTest = new SingleLinkedList<>();
+        ExpressionStack myStack = new ExpressionStack();
+
+        myStack.printStack();
+
+        myStack.push(10);
+        myStack.push(20);
+        myStack.push(30);
+
+        myStack.printStack();
+
+
+    }
+}
+
+
+//============================================================================
+// NEW LINKED LIST TEST
+/*ExpressionLinkedList myList = new ExpressionLinkedList();
+
+        myList.printList();
+
+       *//* myList.insertAfterHead(10);
+        myList.insertAfterHead(20);
+        myList.insertAfterHead(30);
+
+        myList.deleteAfterHead(false);*//*
+
+        myList.insertAtEnd(10);
+        myList.insertAtEnd(20);
+        myList.insertAtEnd(30);
+
+
+        myList.printList();*/
+//============================================================================
+//SOME LINKED LIST GENERIC TESTING
+
+        /*SingleLinkedList<ExpressionNode> infixTest = new SingleLinkedList<>();
         ExpressionNode temp = infixTest.getHead().getNext();
 
         temp.setOperand(4);
@@ -17,12 +51,8 @@ public class Main {
         System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getOperand());
         System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getOperator());
 
-       /* System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getNext().getOperand());
+       *//* System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getNext().getOperand());
         System.out.println(((ExpressionNode) infixTest.getHead().getNext()).getNext().getOperator());*/
-    }
-}
-
-
 //============================================================================
 //TESTING EXPRESSION VALIDATION
         /*Input userInput = new Input();
