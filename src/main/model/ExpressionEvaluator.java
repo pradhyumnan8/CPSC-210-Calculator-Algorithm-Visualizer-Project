@@ -118,11 +118,10 @@ public class ExpressionEvaluator {
                 prevWasOperand = true;
             }
         }
-        if (userExpression.charAt(userExpression.length() - 1) == ')') {
+      /*  if (userExpression.charAt(userExpression.length() - 1) == ')') {
             return;
-        } else {
-            infixList.insertAtEnd(Double.parseDouble(num));
-        }
+        } else {*/
+        infixList.insertAtEnd(Double.parseDouble(num));
     }
 
 //WARNING: REFACTOR METHOD TO BE SHORTER
