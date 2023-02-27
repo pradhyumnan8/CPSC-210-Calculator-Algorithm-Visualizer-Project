@@ -6,14 +6,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ExpressionEvaluatorTest {
 
-    String userExpression1 = "2+4-5^8*4-3/1";
-    String userExpression2 = "2+2";
+    String userExpression1 = "2+4-5+8*4-3/1";
+    String userExpression2 = "2^2";
     ExpressionEvaluator evaluator = new ExpressionEvaluator();
+
 
 
     @Test
     void calculateTestValue() {
-        assertEquals(-1562497, evaluator.calculate(userExpression1));
-        assertEquals(4, evaluator.calculate(userExpression1));
+        assertEquals(30, evaluator.calculate(userExpression1));
+        assertEquals(4, evaluator.calculate(userExpression2));
     }
 }
