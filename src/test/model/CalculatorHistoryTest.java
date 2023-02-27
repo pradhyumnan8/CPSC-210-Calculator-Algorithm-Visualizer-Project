@@ -23,7 +23,13 @@ public class CalculatorHistoryTest {
     }
 
     @Test
-    void meanTest() {
+    void testMean() {
         assertEquals(2, history.mean());
+    }
+
+    @Test
+    void testGetCalculations() {
+        assertEquals(2, history.getCalculations().get(0).getResult());
+        assertEquals(2, history.getCalculations().get(1).getResult());
     }
 }

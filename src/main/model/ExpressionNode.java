@@ -14,12 +14,6 @@ public class ExpressionNode {
         this.next = null;
     }
 
-    public ExpressionNode(double operand, char operator) {
-        this.operator = operator;
-        this.operand = operand;
-        this.next = null;
-    }
-
     public ExpressionNode getNext() {
         return next;
     }

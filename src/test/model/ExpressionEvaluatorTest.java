@@ -8,12 +8,14 @@ public class ExpressionEvaluatorTest {
 
     String userExpression1;
     String userExpression2;
+    String userExpression3;
     ExpressionEvaluator evaluator;
 
     @BeforeEach
     void runBefore() {
         userExpression1 = "2+4-5+8*4-3/1";
-        userExpression2= "2^2";
+        userExpression2 = "2^2";
+        userExpression3 = "1.1+1.1";
         evaluator = new ExpressionEvaluator();
     }
 
@@ -22,6 +24,7 @@ public class ExpressionEvaluatorTest {
     void testCalculateValue() {
         assertEquals(30, evaluator.calculate(userExpression1));
         assertEquals(4, evaluator.calculate(userExpression2));
+        assertEquals(2.2, evaluator.calculate(userExpression3));
     }
 
     @Test
