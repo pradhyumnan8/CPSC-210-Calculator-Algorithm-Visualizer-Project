@@ -65,7 +65,6 @@ public class ExpressionEvaluator {
 
     //NOTE: REFACTOR METHOD TO BE NEATER
     //EFFECTS: returns true if the expression is valid, false if not
-    @SuppressWarnings("methodlength")
     public boolean isValid(String userExpression) {
         int i = 0;
         int rightBracketCount = 0;
@@ -88,12 +87,18 @@ public class ExpressionEvaluator {
                 return false;
             }
         }
+        return isValidFinalDecision(prev, leftBracketCount, rightBracketCount);
+    }
+
+    private boolean isValidFinalDecision(char prev, int leftBracketCount, int rightBracketCount) {
         if (isOperator(prev) && (prev != ')')) {
             return false;
         } else {
             return leftBracketCount == rightBracketCount;
         }
     }
+
+
 
     //REQUIRES: assumes a proper and valid user expression
     //MODIFIES: this
@@ -132,19 +137,16 @@ public class ExpressionEvaluator {
         for (; temp != null; temp = temp.getNext()) {
             if (temp.getOperator() == '$') {
                 postfixList.insertAtEnd(temp.getOperand());
-            //    temp = temp.getNext();
             } else if (isOperator(temp.getOperator())) {
-                if (stack.isEmpty() || (stack.getTop().getOperator() == '(')
+                if (stack.isEmpty()/* || (stack.getTop().getOperator() == '(')*/
                         || (priority(temp.getOperator()) > priority(stack.getTop().getOperator()))) {
                     stack.push(temp.getOperator());
-         //           temp = temp.getNext();
                 } else {
                     while ((priority(temp.getOperator()) <= priority(stack.getTop().getOperator()))
-                            && (!stack.isEmpty()) && (stack.getTop().getOperator() != '(')) {
+                            && (!stack.isEmpty())/* && (stack.getTop().getOperator() != '(')*/) {
                         postfixList.insertAtEnd(stack.pop(true).getOperator());
                     }
                     stack.push(temp.getOperator());
-            //        temp = temp.getNext();
                 }
             }
         }
@@ -152,58 +154,6 @@ public class ExpressionEvaluator {
             postfixList.insertAtEnd(stack.pop(true).getOperator());
         }
     }
-
-    /*public void toPostfix() {
-        ExpressionNode temp = infixList.getHead().getNext();
-        ExpressionStack stack = new ExpressionStack();
-
-        while (temp != null) {
-            System.out.println("BREAKPOINT0");
-            if (temp.getOperator() == '(') {
-                stack.push(temp.getOperator());
-            } else if (temp.getOperator() == ')') {
-                while (stack.getTop().getOperator() != '(') {
-                    postfixList.insertAtEnd(stack.pop(true).getOperator());
-                    temp = temp.getNext();
-                }
-                if (stack.getTop().getOperator() == '(') {
-                    stack.pop(false);
-                }
-            } else if (isOperator((temp.getOperator()))) {
-                if (stack.isEmpty() || (priority(temp.getOperator()) > priority(stack.getTop().getOperator()))
-                || (stack.getTop().getOperator() == '(')) {
-                    postfixList.insertAtEnd(stack.pop(true).getOperator());
-                } else if (priority(temp.getOperator()) <= priority(stack.getTop().getOperator())) {
-                    while ((priority(temp.getOperator()) <= priority(stack.getTop().getOperator()))
-                    && (!stack.isEmpty())
-                    && (stack.getTop().getOperator() != '(')) {
-
-                        if (stack.getTop().getOperator() == '(') {
-                            stack.pop(false);
-                        } else {
-                            postfixList.insertAtEnd(stack.pop(true).getOperator());
-                        }
-
-                        temp = temp.getNext();
-                    }
-                    if (stack.getTop().getOperator() == '(') {
-                        stack.pop(false);
-                    }
-                    postfixList.insertAtEnd(stack.pop(true).getOperator());
-                }
-            } else if (temp.getOperator() == '$') {
-                while (!stack.isEmpty()) {
-                    postfixList.insertAtEnd(stack.pop(true).getOperator());
-                    temp = temp.getNext();
-                }
-                break;
-            } else {
-                postfixList.insertAtEnd(temp.getOperand());
-                postfixList.printList();
-                temp = temp.getNext();
-            }
-        }
-    }*/
 
 
     //MODIFIES: this
