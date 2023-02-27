@@ -16,6 +16,8 @@ public class InputOutput {
     private String expression;
 
 
+    //MODIFIES: this
+    //EFFECTS: prompts the user for an expression until a valid one is entered. Returns the expression.
     public String scanExpression() {
         Scanner input = new Scanner(System.in);
 
@@ -33,6 +35,8 @@ public class InputOutput {
         return expression;
     }
 
+    //REQUIRES: history should not be null
+    //EFFECTS: prints the history of all the user calculations onto the screen.
     public void printHistory(CalculatorHistory history) {
         for (int i = 0; i < history.getCalculations().size(); i++) {
             System.out.printf("%d) Expression: %s      Result: %f\n",
@@ -49,7 +53,7 @@ public class InputOutput {
         System.out.println("1) view history");
         System.out.println("2) get mean of history");
         //System.out.println("3) get median of history");
-        System.out.println("4) perform another calculation");
+        System.out.println("3) perform another calculation");
 
         selection = input.nextInt();
 
@@ -63,14 +67,14 @@ public class InputOutput {
 //            case 3:
 //                System.out.println(evaluator.getHistory().median());
 //                break;
-            case 4:
+            case 3:
                 this.calculator();
                 break;
         }
     }
 
     //MODIFIES: this
-    //EFFECTS: main method to run all the methods for the calculator.
+    //EFFECTS: main method to run all the methods for the calculator from getting input to getting input in the menu.
     public void calculator() {
 
         //expression = "";
