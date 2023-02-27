@@ -55,7 +55,7 @@ public class ExpressionEvaluator {
             priority = 3;
         } else if ((operator == '*') || (operator == '/')) {
             priority = 2;
-        } else if ((operator == '+') || (operator == '-')) {
+        } else {
             priority = 1;
         }
 
