@@ -4,6 +4,7 @@ public class Calculation {
     private String expression;
     private double result;
 
+
     public Calculation(String expression, double result) {
         this.expression = expression;
         this.result = result;

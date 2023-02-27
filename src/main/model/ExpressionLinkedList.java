@@ -1,5 +1,6 @@
 package model;
 
+//Linked list of ExpressionNode
 public class ExpressionLinkedList {
     protected ExpressionNode head;
     protected int listCount;
@@ -10,7 +11,8 @@ public class ExpressionLinkedList {
     }
 
 
-    //makes and inserts a node after head with the given operand (number)
+
+    //EFFECTS: makes and inserts a node after head with the given operand (number)
     public void insertAfterHead(double operand) {
         ExpressionNode node = new ExpressionNode();
         node.setOperand(operand);
@@ -20,7 +22,8 @@ public class ExpressionLinkedList {
         listCount++;
     }
 
-    //makes and inserts a node after head with the given operator
+
+    //EFFECTS: makes and inserts a node after head with the given operator
     public void insertAfterHead(char operator) {
         ExpressionNode node = new ExpressionNode();
         node.setOperator(operator);
@@ -30,7 +33,7 @@ public class ExpressionLinkedList {
         listCount++;
     }
 
-    //makes and inserts a node at the end with the given operand (number)
+    //EFFECTS: makes and inserts a node at the end with the given operand (number)
     public void insertAtEnd(double operand) {
         ExpressionNode node = new ExpressionNode();
         ExpressionNode temp = head;
@@ -46,7 +49,7 @@ public class ExpressionLinkedList {
         listCount++;
     }
 
-    //makes and inserts a node at the end with the given operator
+    //EFFECTS: makes and inserts a node at the end with the given operator
     public void insertAtEnd(char operator) {
         ExpressionNode node = new ExpressionNode();
         ExpressionNode temp = head;
@@ -62,7 +65,7 @@ public class ExpressionLinkedList {
         listCount++;
     }
 
-    //deletes and returns the node after head if specified
+    //EFFECTS: deletes and returns the node after head if specified
     public ExpressionNode deleteAfterHead(boolean shouldReturn) {
         ExpressionNode temp = head.getNext();
 
@@ -80,44 +83,33 @@ public class ExpressionLinkedList {
         }
     }
 
-    //returns listCount
+    //EFFECTS: returns listCount
     public int getListCount() {
         return listCount;
     }
 
-    //returns head
+    //EFFECTS: returns head
     public ExpressionNode getHead() {
         return head;
     }
 
-    //sets head
+    //EFFECTS: sets head
     public void setHead(ExpressionNode head) {
         this.head = head;
     }
 
-
-    //returns true if the list is empty
+    //EFFECTS: returns true if the list is empty
     public boolean isEmpty() {
         return head.getNext() == null;
     }
 
-    //WARNING TO DELETE
-    //prints all the data in the list
-    public void printList() {
-        ExpressionNode temp = head.getNext();
-
-        if (this.isEmpty()) {
-            System.out.println("the list is empty");
-        } else {
-            while (temp != null) {
-                System.out.printf("[%c %f]  ", temp.getOperator(), temp.getOperand());
-
-                temp = temp.getNext();
-            }
-        }
-
-        System.out.print("\n");
+    //EFFECTS: clears the list and makes the head point to null again.
+    public void clearList() {
+        head.setNext(null);
+        listCount = 0;
     }
+
+
 
 
 

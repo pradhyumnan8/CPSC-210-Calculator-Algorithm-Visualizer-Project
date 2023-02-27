@@ -2,6 +2,7 @@ package model;
 
 import java.util.Stack;
 
+// main model class to test validity of user expression and calculate answer (by converting to infix then postfix).
 public class ExpressionEvaluator {
 
     private ExpressionLinkedList infixList = new ExpressionLinkedList();
@@ -11,11 +12,12 @@ public class ExpressionEvaluator {
    // private ExpressionStack holdingStack = new ExpressionStack();
 
 
+    //EFFECTS: returns history.
     public CalculatorHistory getHistory() {
         return history;
     }
 
-    //checks if given character is an operator
+    //EFFECTS: checks if given character is an operator
     private boolean isOperator(char character) {
         final char[] OPERATORS = {'+', '-', '*', '/', '^', '(', ')'};
 
@@ -28,7 +30,8 @@ public class ExpressionEvaluator {
         return false;
     }
 
-    //checks if given character is a number
+
+    //EFFECTS: checks if given character is a number
     private boolean isNumber(char character) {
         final char[] NUMBERS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
@@ -60,8 +63,8 @@ public class ExpressionEvaluator {
     }
 
 
-    //WARNING REFACTOR METHOD TO BE NEATER
-    //returns true if the expression is valid, false if not
+    //NOTE: REFACTOR METHOD TO BE NEATER
+    //EFFECTS: returns true if the expression is valid, false if not
     public boolean isValid(String userExpression) {
         int i = 0, rightBracketCount = 0, leftBracketCount = 0;
         char prev = '1';
@@ -89,6 +92,9 @@ public class ExpressionEvaluator {
         }
     }
 
+    //REQUIRES: assumes a proper and valid user expression
+    //MODIFIES: this
+    //EFFECTS: converts the user given string to an infix expression
    private void toInfix(String userExpression) {
         String num = "";
         int i = 0;
@@ -117,6 +123,9 @@ public class ExpressionEvaluator {
     }
 
 //WARNING: REFACTOR METHOD TO BE SHORTER
+    //REQUIRES: assumes a proper and valid infix list
+    //MODIFIES: this
+    //EFFECTS: converts an infix expression to a postfix expression
     private void toPostfix() {
         ExpressionNode temp = infixList.getHead().getNext();
         ExpressionStack stack = new ExpressionStack();
@@ -203,6 +212,9 @@ public class ExpressionEvaluator {
         }
     }*/
 
+
+    //MODIFIES: this
+    //EFFECTS: evaluates the postfix expression
     private void evaluate() {
         ExpressionNode temp = postfixList.head.getNext();
         double num1 = 0;
@@ -239,6 +251,9 @@ public class ExpressionEvaluator {
         }
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: calculates result from user input
     public double calculate(String userExpression) {
         this.isValid(userExpression);
         this.toInfix(userExpression);
@@ -247,13 +262,11 @@ public class ExpressionEvaluator {
 
         Calculation thisCalculation = new Calculation(userExpression, res);
 
-//        System.out.println(thisCalculation.getExpression());
-//        System.out.println(thisCalculation.getResult());
 
-        //history.addCalculation(thisCalculation);
-        //infixList.printList();
-        //postfixList.printList();
-        //System.out.println(res);
+        history.addCalculation(thisCalculation);
+
+        infixList.clearList();
+        postfixList.clearList();
 
         return res;
     }

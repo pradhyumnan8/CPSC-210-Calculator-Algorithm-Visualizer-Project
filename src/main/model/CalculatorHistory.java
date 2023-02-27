@@ -1,15 +1,10 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
+//Stores the history of calculations and has statistical methods to act upon them.
 public class CalculatorHistory {
-    public ArrayList<Calculation> calculations;
-
-    public CalculatorHistory() {
-       // Calculation tempCalculation = new Calculation("test", 0.0);
-       // calculations.add(0, tempCalculation);
-    }
+    public ArrayList<Calculation> calculations = new ArrayList<>();
 
     public ArrayList<Calculation> getCalculations() {
         return calculations;
@@ -33,7 +28,11 @@ public class CalculatorHistory {
     public double median() {
         int middle = 0;
 
-        if (isEven(calculations.size())) {
+        if (calculations.size() == 1) {
+            return calculations.get(0).getResult();
+        } else if (calculations.size() == 2) {
+            return (calculations.get(0).getResult() + calculations.get(1).getResult()) / 2;
+        } else if (isEven(calculations.size())) {
             middle = calculations.size() / 2;
 
             return (calculations.get(middle).getResult() + calculations.get(middle + 1).getResult()) / 2;

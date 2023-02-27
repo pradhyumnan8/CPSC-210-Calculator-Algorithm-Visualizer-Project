@@ -1,20 +1,19 @@
 package model;
 
+//class that builds a stack based on the ExpressionLinkedList class
 public class ExpressionStack extends ExpressionLinkedList {
 
     private int topIndex;
     private ExpressionNode top;
 
+    //EFFECTS: instantiates a new ExpressionStack with.
     public ExpressionStack() {
         this.topIndex = -1;
         this.top = head.getNext();
-
-        head.setOperator('h');
-        head.setOperand(-99);
     }
 
-
-    //pushes an operand
+    //MODIFIES: this
+    //EFFECTS: pushes an operand into the stack
     public void push(double operand) {
         super.insertAfterHead(operand);
         top = head.getNext();
@@ -22,59 +21,38 @@ public class ExpressionStack extends ExpressionLinkedList {
     }
 
 
-    //pushes an operator
+    //MODIFIES: this
+    //EFFECTS: pushes an operator into the stack
     public void push(char operator) {
         super.insertAfterHead(operator);
         top = head.getNext();
         topIndex++;
     }
 
-    //pops and returns the top node if specified as such
+    //MODIFIES: this
+    //EFFECTS: pops and returns the top node if specified as such
     public ExpressionNode pop(boolean shouldReturn) {
         topIndex--;
         top = head.getNext();
         return super.deleteAfterHead(shouldReturn);
     }
 
-    //returns topIndex
+    //MODIFIES: this
+    //EFFECTS: returns topIndex
     public int getTopIndex() {
         return topIndex;
     }
 
-    //returns top
+    //EFFECTS: returns the top node of the stack.
     public ExpressionNode getTop() {
         return top;
     }
 
+
     @Override
+    //EFFECTS: returns true if the stack is empty.
     public boolean isEmpty() {
         //return topIndex == -1;
         return head.getNext() == null;
     }
-
-    //WARNING TO DELETE
-    public void printStack() {
-        ExpressionNode temp = head.getNext();
-
-        if (this.isEmpty()) {
-            System.out.println("The stack is empty");
-            return;
-        }
-
-        while (temp != null) {
-            System.out.printf("[%c, %f]\n", temp.getOperator(), temp.getOperand());
-
-            temp = temp.getNext();
-        }
-    }
-
-
-
-
-
-
-
-
-
-
 }

@@ -33,9 +33,9 @@ public class InputOutput {
         return expression;
     }
 
-    private void printHistory (CalculatorHistory history) {
+    public void printHistory (CalculatorHistory history) {
         for (int i = 0; i < history.getCalculations().size(); i++) {
-            System.out.printf("%d) Expression: %s      Result: %f\n", history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
+            System.out.printf("%d) Expression: %s      Result: %f\n", i, history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
         }
 
     }
@@ -72,28 +72,23 @@ public class InputOutput {
     //EFFECTS: main method to run all the methods for the calculator.
     public void calculator() {
 
-        expression = "";
+        //expression = "";
         expression = scanExpression();
         double res = evaluator.calculate(expression);
         history = evaluator.getHistory();
 
-        System.out.println(res);
+        System.out.println("The answer is:  " + res);
         System.out.println();
 
-        while (true) {
-            String quit;
+        System.out.println("Do you want to quit the application [y/n]?");
+        this.input = new Scanner(System.in);
+        String quit = input.next();
+
+        while (!Objects.equals(quit, "y")) {
+            this.menu();
 
             System.out.println("Do you want to quit the application [y/n]?");
             quit = input.next();
-
-            if (Objects.equals(quit, "y")) {
-                break;
-            }
-
-            this.input = new Scanner(System.in);
-            this.expression = "";
-
-            this.menu();
         }
     }
 }
