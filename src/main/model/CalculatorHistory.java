@@ -14,6 +14,9 @@ public class CalculatorHistory {
         calculations.add(newCalculation);
     }
 
+
+    //REQUIRES: calculations (history) should not be empty
+    //EFFECTS: returns the mean of all the calculations performed so far.
     public double mean() {
         int i = 0;
         double sum = 0;
@@ -25,7 +28,7 @@ public class CalculatorHistory {
         return sum / calculations.size();
     }
 
-    public double median() {
+    /*public double median() {
         int middle = 0;
 
         if (calculations.size() == 1) {
@@ -40,9 +43,9 @@ public class CalculatorHistory {
             middle = (calculations.size() - 1) / 2;
             return calculations.get(middle).getResult();
         }
-    }
+    }*/
 
-    private boolean isEven(int num) {
+   /* private boolean isEven(int num) {
         return (num % 2) == 0;
-    }
+    }*/
 }

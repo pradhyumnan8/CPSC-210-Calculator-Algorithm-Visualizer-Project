@@ -48,7 +48,7 @@ public class InputOutput {
         System.out.println("select from the following options:");
         System.out.println("1) view history");
         System.out.println("2) get mean of history");
-        System.out.println("3) get median of history");
+        //System.out.println("3) get median of history");
         System.out.println("4) perform another calculation");
 
         selection = input.nextInt();
@@ -60,9 +60,9 @@ public class InputOutput {
             case 2:
                 System.out.println(evaluator.getHistory().mean());
                 break;
-            case 3:
-                System.out.println(evaluator.getHistory().median());
-                break;
+//            case 3:
+//                System.out.println(evaluator.getHistory().median());
+//                break;
             case 4:
                 this.calculator();
                 break;

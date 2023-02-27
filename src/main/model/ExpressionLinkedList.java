@@ -11,7 +11,6 @@ public class ExpressionLinkedList {
     }
 
 
-
     //EFFECTS: makes and inserts a node after head with the given operand (number)
     public void insertAfterHead(double operand) {
         ExpressionNode node = new ExpressionNode();

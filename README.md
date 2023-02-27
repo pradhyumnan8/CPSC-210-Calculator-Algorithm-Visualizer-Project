@@ -31,6 +31,6 @@ Possible list of extra features:
 ## User Stories:
 
 - As a user, I want to add my current calculation to a history of calculations.
-- As a user, I want to calculate the mean and median of my history of calculation. 
+- As a user, I want to calculate the mean of my history of calculation. 
 - As a user, I want to calculate expressions of any length using the five basic functions (+, -, /, *, ^)
 - As a user, I want to perform as many calculations as I want without having to rerun the program. 
