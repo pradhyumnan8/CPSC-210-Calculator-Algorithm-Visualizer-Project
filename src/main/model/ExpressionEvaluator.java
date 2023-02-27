@@ -46,7 +46,7 @@ public class ExpressionEvaluator {
 
     //REQUIRES: given character must be one of {'+', '-', '*', '/', '^', '('}
     //EFFECTS: returns the priority of the given operator. Higher the return value, greater the priority.
-    private int priority(char operator) {
+    public int priority(char operator) {
         int priority = 0;
 
         if (operator == '(') {
@@ -138,17 +138,17 @@ public class ExpressionEvaluator {
             if (temp.getOperator() == '$') {
                 postfixList.insertAtEnd(temp.getOperand());
                 temp = temp.getNext();
-            } else if (temp.getOperator() == '(') {
+           /* } else if (temp.getOperator() == '(') {
                 stack.push(temp.getOperator());
-                temp = temp.getNext();
-            } else if (temp.getOperator() == ')') {
+                temp = temp.getNext();*/
+         /*   } else if (temp.getOperator() == ')') {
                 while (stack.getTop().getOperator() != '(') {
                     postfixList.insertAtEnd(stack.pop(true).getOperator());
                 }
                 if (stack.getTop().getOperator() == '(') {
                     stack.pop(false);
                  //   temp = temp.getNext();
-                }
+                }*/
             } else if (isOperator(temp.getOperator())) {
                 if (stack.isEmpty() || (stack.getTop().getOperator() == '(')
                         || (priority(temp.getOperator()) > priority(stack.getTop().getOperator()))) {

@@ -82,19 +82,14 @@ public class ExpressionLinkedList {
         }
     }
 
-    //EFFECTS: returns listCount
+   /* //EFFECTS: returns listCount
     public int getListCount() {
         return listCount;
-    }
+    }*/
 
     //EFFECTS: returns head
     public ExpressionNode getHead() {
         return head;
-    }
-
-    //EFFECTS: sets head
-    public void setHead(ExpressionNode head) {
-        this.head = head;
     }
 
     //EFFECTS: returns true if the list is empty
