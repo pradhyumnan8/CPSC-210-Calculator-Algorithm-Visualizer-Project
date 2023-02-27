@@ -8,9 +8,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-    InputOutput calculatorProgram = new InputOutput();
+        InputOutput calculatorProgram = new InputOutput();
 
-       calculatorProgram.calculator();
+        calculatorProgram.calculator();
     }
 }
 
