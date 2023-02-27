@@ -48,6 +48,8 @@ public class ExpressionEvaluatorTest {
         assertFalse(evaluator.isValid("+3+2+-2"));
         assertFalse(evaluator.isValid("+3+2+/3"));
         assertFalse(evaluator.isValid("3+*2"));
+        assertFalse(evaluator.isValid("3+(4+7))*2"));
+        assertFalse(evaluator.isValid("3+(4+7))*2"));
     }
 
     @Test
@@ -56,6 +58,7 @@ public class ExpressionEvaluatorTest {
         assertTrue(evaluator.isValid("3+2+(2-4)"));
         assertTrue(evaluator.isValid("3+2^32"));
         assertTrue(evaluator.isValid("3+2*3"));
+        assertTrue(evaluator.isValid("3+2*3+(3+4)+4"));
     }
 
     @Test

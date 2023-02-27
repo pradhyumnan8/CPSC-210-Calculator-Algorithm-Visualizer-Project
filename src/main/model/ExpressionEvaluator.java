@@ -105,14 +105,12 @@ public class ExpressionEvaluator {
 
         for (i = 0; (i < userExpression.length()); i++) {
             if (isOperator(userExpression.charAt(i))) {
-                if (prevWasOperand) {
-                    infixList.insertAtEnd(Double.parseDouble(num));
-                    num = "";
-                    prevWasOperand = false;
-                }
-
+               // if (prevWasOperand) {
+                infixList.insertAtEnd(Double.parseDouble(num));
+                num = "";
+                prevWasOperand = false;
+             //   }
                 infixList.insertAtEnd(userExpression.charAt(i));
-
             } else if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.')) {
                 num += userExpression.charAt(i);
                 prevWasOperand = true;
@@ -128,38 +126,25 @@ public class ExpressionEvaluator {
     //REQUIRES: assumes a proper and valid infix list
     //MODIFIES: this
     //EFFECTS: converts an infix expression to a postfix expression
-    @SuppressWarnings("methodlength")
     private void toPostfix() {
         ExpressionNode temp = infixList.getHead().getNext();
         ExpressionStack stack = new ExpressionStack();
-
-        for (; temp != null; /*temp = temp.getNext()*/) {
+        for (; temp != null; temp = temp.getNext()) {
             if (temp.getOperator() == '$') {
                 postfixList.insertAtEnd(temp.getOperand());
-                temp = temp.getNext();
-           /* } else if (temp.getOperator() == '(') {
-                stack.push(temp.getOperator());
-                temp = temp.getNext();*/
-         /*   } else if (temp.getOperator() == ')') {
-                while (stack.getTop().getOperator() != '(') {
-                    postfixList.insertAtEnd(stack.pop(true).getOperator());
-                }
-                if (stack.getTop().getOperator() == '(') {
-                    stack.pop(false);
-                 //   temp = temp.getNext();
-                }*/
+            //    temp = temp.getNext();
             } else if (isOperator(temp.getOperator())) {
                 if (stack.isEmpty() || (stack.getTop().getOperator() == '(')
                         || (priority(temp.getOperator()) > priority(stack.getTop().getOperator()))) {
                     stack.push(temp.getOperator());
-                    temp = temp.getNext();
+         //           temp = temp.getNext();
                 } else {
                     while ((priority(temp.getOperator()) <= priority(stack.getTop().getOperator()))
                             && (!stack.isEmpty()) && (stack.getTop().getOperator() != '(')) {
                         postfixList.insertAtEnd(stack.pop(true).getOperator());
                     }
                     stack.push(temp.getOperator());
-                    temp = temp.getNext();
+            //        temp = temp.getNext();
                 }
             }
         }
@@ -223,7 +208,6 @@ public class ExpressionEvaluator {
 
     //MODIFIES: this
     //EFFECTS: evaluates the postfix expression
-    @SuppressWarnings("methodlength")
     private void evaluate() {
         ExpressionNode temp = postfixList.head.getNext();
         double num1 = 0;
@@ -234,23 +218,9 @@ public class ExpressionEvaluator {
             if (isOperator(temp.getOperator())) {
                 num2 = stack.pop(true).getOperand();
                 num1 = stack.pop(true).getOperand();
-                switch (temp.getOperator()) {
-                    case '+':
-                        res = num1 + num2;
-                        break;
-                    case '-':
-                        res = num1 - num2;
-                        break;
-                    case '*':
-                        res = num1 * num2;
-                        break;
-                    case '/':
-                        res = num1 / num2;
-                        break;
-                    case '^':
-                        res = Math.pow(num1, num2);
-                        break;
-                }
+
+                res = decideOperation(temp.getOperator(), num1,num2);
+
                 stack.push(res);
                 temp = temp.getNext();
             } else {
@@ -260,8 +230,23 @@ public class ExpressionEvaluator {
         }
     }
 
+    private double decideOperation(char operator, double num1, double num2) {
+        if (operator == '+') {
+            return num1 + num2;
+        } else if (operator == '-') {
+            return num1 - num2;
+        } else if (operator == '*') {
+            return num1 * num2;
+        } else if (operator == '/') {
+            return num1 / num2;
+        } else {
+            return Math.pow(num1, num2);
+        }
+    }
 
-    //MODIFIES: this
+
+
+            //MODIFIES: this
     //EFFECTS: calculates result from user input
     public double calculate(String userExpression) {
         this.isValid(userExpression);
