@@ -1,16 +1,18 @@
 package model;
 
-//Linked list of ExpressionNode
+//Linked list of ExpressionNode where the head is a node used as a constant point of reference (never gets deleted)
 public class ExpressionLinkedList {
     protected ExpressionNode head;
     protected int listCount;
 
+    //EFFECTS: constructs a new ExpressionLinkedList with the head as a ExpressionNode and listCount 0 (list is empty)
     public ExpressionLinkedList() {
         this.head = new ExpressionNode();
         this.listCount = 0;
     }
 
 
+    //MODIFIES: this
     //EFFECTS: makes and inserts a node after head with the given operand (number)
     public void insertAfterHead(double operand) {
         ExpressionNode node = new ExpressionNode();
@@ -22,6 +24,7 @@ public class ExpressionLinkedList {
     }
 
 
+    //MODIFIES: this
     //EFFECTS: makes and inserts a node after head with the given operator
     public void insertAfterHead(char operator) {
         ExpressionNode node = new ExpressionNode();
@@ -32,6 +35,7 @@ public class ExpressionLinkedList {
         listCount++;
     }
 
+    //MODIFIES: this
     //EFFECTS: makes and inserts a node at the end with the given operand (number)
     public void insertAtEnd(double operand) {
         ExpressionNode node = new ExpressionNode();
@@ -48,6 +52,7 @@ public class ExpressionLinkedList {
         listCount++;
     }
 
+    //MODIFIES: this
     //EFFECTS: makes and inserts a node at the end with the given operator
     public void insertAtEnd(char operator) {
         ExpressionNode node = new ExpressionNode();
@@ -64,7 +69,8 @@ public class ExpressionLinkedList {
         listCount++;
     }
 
-    //EFFECTS: deletes and returns the node after head if specified
+    //MODIFIES: this
+    //EFFECTS: deletes and returns the node after head if specified or else null;
     public ExpressionNode deleteAfterHead(boolean shouldReturn) {
         ExpressionNode temp = head.getNext();
 
@@ -97,14 +103,10 @@ public class ExpressionLinkedList {
         return head.getNext() == null;
     }
 
+    //MODIFIES: this
     //EFFECTS: clears the list and makes the head point to null again.
     public void clearList() {
         head.setNext(null);
         listCount = 0;
     }
-
-
-
-
-
 }

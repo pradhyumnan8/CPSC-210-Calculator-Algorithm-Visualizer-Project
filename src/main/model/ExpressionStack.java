@@ -13,7 +13,7 @@ public class ExpressionStack extends ExpressionLinkedList {
     }
 
     //MODIFIES: this
-    //EFFECTS: pushes an operand into the stack
+    //EFFECTS: creates and pushes a new node with the given operand into the stack.
     public void push(double operand) {
         super.insertAfterHead(operand);
         top = head.getNext();
@@ -22,7 +22,7 @@ public class ExpressionStack extends ExpressionLinkedList {
 
 
     //MODIFIES: this
-    //EFFECTS: pushes an operator into the stack
+    //EFFECTS: creates and pushes a new node with the given operator into the stack.
     public void push(char operator) {
         super.insertAfterHead(operator);
         top = head.getNext();
@@ -37,7 +37,7 @@ public class ExpressionStack extends ExpressionLinkedList {
         return super.deleteAfterHead(shouldReturn);
     }
 
-    //MODIFIES: this
+
     //EFFECTS: returns topIndex
     public int getTopIndex() {
         return topIndex;

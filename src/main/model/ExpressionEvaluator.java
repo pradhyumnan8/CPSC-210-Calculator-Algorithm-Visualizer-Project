@@ -80,7 +80,7 @@ public class ExpressionEvaluator {
                     leftBracketCount++;
                 } else if (userExpression.charAt(i) == ')') {
                     rightBracketCount++;
-                } else if (isOperator(prev) && (prev != ')') && (prev != '(')) {
+                } else if (isOperator(prev) && (prev != ')') /*&& (prev != '(')*/) {
                     return false;
                 }
             } else if ((!isNumber(userExpression.charAt(i))) && (userExpression.charAt(i) != '.')) {
@@ -90,6 +90,8 @@ public class ExpressionEvaluator {
         return isValidFinalDecision(prev, leftBracketCount, rightBracketCount);
     }
 
+    //REQUIRES: appropriate values for parameters as per isValid() method.
+    //EFFECTS: helper function for isValid method as it was over line limit. Takes the final decision past the loop.
     private boolean isValidFinalDecision(char prev, int leftBracketCount, int rightBracketCount) {
         if (isOperator(prev) && (prev != ')')) {
             return false;
@@ -116,7 +118,7 @@ public class ExpressionEvaluator {
                 prevWasOperand = false;
              //   }
                 infixList.insertAtEnd(userExpression.charAt(i));
-            } else if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.')) {
+            } else /*if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.'))*/ {
                 num += userExpression.charAt(i);
                 prevWasOperand = true;
             }
@@ -127,7 +129,7 @@ public class ExpressionEvaluator {
         infixList.insertAtEnd(Double.parseDouble(num));
     }
 
-//WARNING: REFACTOR METHOD TO BE SHORTER
+
     //REQUIRES: assumes a proper and valid infix list
     //MODIFIES: this
     //EFFECTS: converts an infix expression to a postfix expression
@@ -137,7 +139,7 @@ public class ExpressionEvaluator {
         for (; temp != null; temp = temp.getNext()) {
             if (temp.getOperator() == '$') {
                 postfixList.insertAtEnd(temp.getOperand());
-            } else if (isOperator(temp.getOperator())) {
+            } else /*if (isOperator(temp.getOperator()))*/ {
                 if (stack.isEmpty()/* || (stack.getTop().getOperator() == '(')*/
                         || (priority(temp.getOperator()) > priority(stack.getTop().getOperator()))) {
                     stack.push(temp.getOperator());
@@ -180,6 +182,8 @@ public class ExpressionEvaluator {
         }
     }
 
+    //REQUIRES: appropriate values for parameters as per evaluate() method
+    //EFFECTS: helper function for evaluate() method to which arithmetic operation to use on the popped numbers.
     private double decideOperation(char operator, double num1, double num2) {
         if (operator == '+') {
             return num1 + num2;
@@ -196,8 +200,8 @@ public class ExpressionEvaluator {
 
 
 
-            //MODIFIES: this
-    //EFFECTS: calculates result from user input
+    //MODIFIES: this
+    //EFFECTS: calculates result from user input and clears the infix/postfix lists to be ready for next calculation
     public double calculate(String userExpression) {
         this.isValid(userExpression);
         this.toInfix(userExpression);
@@ -206,7 +210,6 @@ public class ExpressionEvaluator {
 
         Calculation thisCalculation = new Calculation(userExpression, res);
 
-
         history.addCalculation(thisCalculation);
 
         infixList.clearList();
@@ -214,6 +217,4 @@ public class ExpressionEvaluator {
 
         return res;
     }
-
-
 }
