@@ -80,7 +80,7 @@ public class ExpressionEvaluator {
                     leftBracketCount++;
                 } else if (userExpression.charAt(i) == ')') {
                     rightBracketCount++;
-                } else if (isOperator(prev) && (prev != ')') /*&& (prev != '(')*/) {
+                } else if (isOperator(prev) && (prev != ')') && (prev != '(')) {
                     return false;
                 }
             } else if ((!isNumber(userExpression.charAt(i))) && (userExpression.charAt(i) != '.')) {
@@ -112,48 +112,56 @@ public class ExpressionEvaluator {
 
         for (i = 0; (i < userExpression.length()); i++) {
             if (isOperator(userExpression.charAt(i))) {
-               // if (prevWasOperand) {
-                infixList.insertAtEnd(Double.parseDouble(num));
-                num = "";
-                prevWasOperand = false;
-             //   }
+                if (prevWasOperand) {
+                    infixList.insertAtEnd(Double.parseDouble(num));
+                    num = "";
+                    prevWasOperand = false;
+                }
                 infixList.insertAtEnd(userExpression.charAt(i));
-            } else /*if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.'))*/ {
+            } else if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.')) {
                 num += userExpression.charAt(i);
                 prevWasOperand = true;
             }
         }
-      /*  if (userExpression.charAt(userExpression.length() - 1) == ')') {
+        if (userExpression.charAt(userExpression.length() - 1) == ')') {
             return;
-        } else {*/
-        infixList.insertAtEnd(Double.parseDouble(num));
+        } else {
+            infixList.insertAtEnd(Double.parseDouble(num));
+        }
     }
 
 
     //REQUIRES: assumes a proper and valid infix list
     //MODIFIES: this
     //EFFECTS: converts an infix expression to a postfix expression
+    @SuppressWarnings("methodlength")
     private void toPostfix() {
-        ExpressionNode temp = infixList.getHead().getNext();
-        ExpressionStack stack = new ExpressionStack();
+        ExpressionNode temp = infixList.head.getNext();
+        Stack<ExpressionNode> stack = new Stack<>();
+
         for (; temp != null; temp = temp.getNext()) {
             if (temp.getOperator() == '$') {
                 postfixList.insertAtEnd(temp.getOperand());
-            } else /*if (isOperator(temp.getOperator()))*/ {
-                if (stack.isEmpty()/* || (stack.getTop().getOperator() == '(')*/
-                        || (priority(temp.getOperator()) > priority(stack.getTop().getOperator()))) {
-                    stack.push(temp.getOperator());
-                } else {
-                    while ((priority(temp.getOperator()) <= priority(stack.getTop().getOperator()))
-                            && (!stack.isEmpty())/* && (stack.getTop().getOperator() != '(')*/) {
-                        postfixList.insertAtEnd(stack.pop(true).getOperator());
+            } else {
+                if ((stack.empty()) || (priority(temp.getOperator()) > priority(stack.peek().getOperator()))
+                        || (stack.peek().getOperator() == '(')) {
+                    stack.push(temp);
+                } else if (temp.getOperator() == ')') {
+                    while (stack.peek().getOperator() != '(') {
+                        postfixList.insertAtEnd(stack.pop().getOperator());
                     }
-                    stack.push(temp.getOperator());
+                    stack.pop();
+                } else {
+                    while ((!stack.empty()) && (priority(temp.getOperator()) <= priority(stack.peek().getOperator()))) {
+                        postfixList.insertAtEnd(stack.pop().getOperator());
+                    }
+                    stack.push(temp);
                 }
             }
         }
-        while (stack.getTopIndex() >= 0) {
-            postfixList.insertAtEnd(stack.pop(true).getOperator());
+
+        while (!stack.empty()) {
+            postfixList.insertAtEnd(stack.pop().getOperator());
         }
     }
 
