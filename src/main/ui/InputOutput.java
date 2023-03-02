@@ -47,7 +47,7 @@ public class InputOutput {
             System.out.println("There is nothing in your history");
         } else {
             for (int i = 0; i < history.getCalculations().size(); i++) {
-                System.out.printf("%d) Expression: %s      Result: %f\n", i,
+                System.out.printf("%d) Expression: %s      Result: %f\n", i+1,
                         history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
             }
         }

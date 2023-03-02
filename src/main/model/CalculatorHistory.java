@@ -72,7 +72,7 @@ public class CalculatorHistory {
     //MODIFIES: this
     //EFFECTS: removes the calculation at the given index from the history.
     public void delete(int index) {
-        calculations.remove(index);
+        calculations.remove(index-1);
     }
 
     //MODIFIES: this
