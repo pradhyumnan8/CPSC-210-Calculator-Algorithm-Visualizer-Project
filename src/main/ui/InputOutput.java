@@ -2,9 +2,12 @@ package ui;
 
 import model.CalculatorHistory;
 import model.ExpressionEvaluator;
+import model.ExpressionNode;
+import model.ExpressionStack;
 
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Stack;
 
 
 //Acts as the user interface by prompting the user for inputs and displaying outputs onto the screen.
@@ -45,6 +48,51 @@ public class InputOutput {
         }
 
     }
+
+    //REQUIRES: choice must be 0, 1, or 2.
+    //EFFECTS: prints the entire stack, or prints "stack is empty" if the stack is empty.
+    //         if choice is 0, both fields are printed.
+    //         if choice is 1, operators are printed.
+    //         if choice is 2, operands are printed.
+    public void printStack(ExpressionStack stack, int choice) {
+        ExpressionNode temp = stack.getHead().getNext();
+
+        for (; true; temp = temp.getNext()) {
+            if (temp == null) {
+                System.out.println("The stack is empty");
+                System.out.println();
+                //System.exit(1);
+                break;
+            }
+
+            if (choice == 0) {
+                System.out.printf("[%c  %f]\n", temp.getOperator(), temp.getOperand());
+            } else if (choice == 1) {
+                System.out.printf("[%c]\n", temp.getOperator());
+            } else {
+                System.out.printf("[%f]\n", temp.getOperand());
+            }
+        }
+
+
+
+//        if (temp == null) {
+//            System.out.println("The stack is empty");
+//        } else if (choice == 0) {
+//            while (temp != null) {
+//                System.out.printf("[%c  $f]\n", temp.getOperator(), temp.getOperand());
+//            }
+//        } else if (choice == 1) {
+//            while (temp != null) {
+//                System.out.printf("[%c]\n", temp.getOperator());
+//            }
+//        } else {
+//            while (temp != null) {
+//                System.out.printf("[$f]\n", temp.getOperand());
+//            }
+//        }
+    }
+
 
     //REQUIRES: Input must be valid
     //EFFECTS: Provides the user with a menu to continue operating the program.

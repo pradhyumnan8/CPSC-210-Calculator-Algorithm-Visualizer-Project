@@ -1,5 +1,7 @@
 package model;
 
+import ui.InputOutput;
+
 import java.util.Stack;
 
 // main model class to test validity of user expression and calculate answer (by converting to infix then postfix).
@@ -8,6 +10,7 @@ public class ExpressionEvaluator {
     private ExpressionLinkedList infixList = new ExpressionLinkedList();
     private ExpressionLinkedList postfixList = new ExpressionLinkedList();
     private CalculatorHistory history = new CalculatorHistory();
+//    private InputOutput display = new InputOutput();
     private double res;
    // private ExpressionStack holdingStack = new ExpressionStack();
 
@@ -169,26 +172,39 @@ public class ExpressionEvaluator {
     //MODIFIES: this
     //EFFECTS: evaluates the postfix expression
     private void evaluate() {
+        InputOutput display = new InputOutput();
         ExpressionNode temp = postfixList.head.getNext();
         double num1 = 0;
         double num2 = 0;
         ExpressionStack stack = new ExpressionStack();
+        System.out.printf("\nBefore starting evaluation process:\n");
+        display.printStack(stack, 2);
 
         while (temp != null) {
             if (isOperator(temp.getOperator())) {
                 num2 = stack.pop(true).getOperand();
+                display.printStack(stack, 2);
+
                 num1 = stack.pop(true).getOperand();
+                display.printStack(stack, 2);
 
                 res = decideOperation(temp.getOperator(), num1,num2);
 
                 stack.push(res);
+                display.printStack(stack, 2);
+
                 temp = temp.getNext();
             } else {
                 stack.push(temp.getOperand());
+                display.printStack(stack, 2);
+
                 temp = temp.getNext();
             }
         }
+        System.out.printf("\nAfter Finishing evaluation process:\n");
+        display.printStack(stack, 2);
     }
+
 
     //REQUIRES: appropriate values for parameters as per evaluate() method
     //EFFECTS: helper function for evaluate() method to which arithmetic operation to use on the popped numbers.

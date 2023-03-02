@@ -5,6 +5,7 @@ import java.util.ArrayList;
 //Stores the history of calculations and has statistical methods to act upon them.
 public class CalculatorHistory {
     private ArrayList<Calculation> calculations = new ArrayList<>();
+    private ArrayList<Double> results = new ArrayList<>();
 
     public ArrayList<Calculation> getCalculations() {
         return calculations;
