@@ -16,8 +16,8 @@ the project but progress will be evident in the later phases of the project.
 
 
 
+- Expression solver with support for basic functions (+, -, /, *, ^). Negative numbers are not supported right now.
 A list of features the application will include:
-- Expression solver with support for basic functions (+, -, /, *, ^). Brackets and negative numbers are not supported right now.
 - A history function that will allow you to view and select previous calculations 
 - Statistical functions (mean, median etc.) that can be run on your history.
 - A toggleable stack visualizer that shows data flow through the stack at each point.  
@@ -32,5 +32,5 @@ Possible list of extra features:
 
 - As a user, I want to add my current calculation to a history of calculations.
 - As a user, I want to calculate the mean of my history of calculation. 
-- As a user, I want to calculate expressions of any length using the five basic functions (+, -, /, *, ^)
+- As a user, I want to calculate expressions of any length using the five basic functions (+, -, /, *, ^) and brackets.
 - As a user, I want to perform as many calculations as I want without having to rerun the program. 
