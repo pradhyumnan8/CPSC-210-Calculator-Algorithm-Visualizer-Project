@@ -177,32 +177,32 @@ public class ExpressionEvaluator {
         double num1 = 0;
         double num2 = 0;
         ExpressionStack stack = new ExpressionStack();
-        System.out.printf("\nBefore starting evaluation process:\n");
-        display.printStack(stack, 2);
+     //   System.out.printf("\nBefore starting evaluation process:\n");
+    //    display.printStack(stack, 2);
 
         while (temp != null) {
             if (isOperator(temp.getOperator())) {
                 num2 = stack.pop(true).getOperand();
-                display.printStack(stack, 2);
+        //        display.printStack(stack, 2);
 
                 num1 = stack.pop(true).getOperand();
-                display.printStack(stack, 2);
+        //        display.printStack(stack, 2);
 
                 res = decideOperation(temp.getOperator(), num1,num2);
 
                 stack.push(res);
-                display.printStack(stack, 2);
+        //        display.printStack(stack, 2);
 
                 temp = temp.getNext();
             } else {
                 stack.push(temp.getOperand());
-                display.printStack(stack, 2);
+        //        display.printStack(stack, 2);
 
                 temp = temp.getNext();
             }
         }
-        System.out.printf("\nAfter Finishing evaluation process:\n");
-        display.printStack(stack, 2);
+      //  System.out.printf("\nAfter Finishing evaluation process:\n");
+     //   display.printStack(stack, 2);
     }
 
 

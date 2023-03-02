@@ -42,12 +42,18 @@ public class InputOutput {
     //REQUIRES: history should not be null
     //EFFECTS: prints the history of all the user calculations onto the screen.
     public void printHistory(CalculatorHistory history) {
-        for (int i = 0; i < history.getCalculations().size(); i++) {
-            System.out.printf("%d) Expression: %s      Result: %f\n",
-                    i, history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
-        }
 
+        if (history.getCalculations().size() == 0) {
+            System.out.println("There is nothing in your history");
+        } else {
+            for (int i = 0; i < history.getCalculations().size(); i++) {
+                System.out.printf("%d) Expression: %s      Result: %f\n", i,
+                        history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
+            }
+        }
+        System.out.println();
     }
+
 
     //REQUIRES: choice must be 0, 1, or 2.
     //EFFECTS: prints the entire stack, or prints "stack is empty" if the stack is empty.
@@ -96,15 +102,18 @@ public class InputOutput {
 
     //REQUIRES: Input must be valid
     //EFFECTS: Provides the user with a menu to continue operating the program.
+    @SuppressWarnings("methodlength")
     public void menu() {
         String selection = "";
         input = new Scanner(System.in);
 
         System.out.println("select from the following options:");
         System.out.println("1) view history");
-        System.out.println("2) get mean of history");
-        //System.out.println("3) get median of history");
-        System.out.println("3) perform another calculation");
+        System.out.println("2) delete an entry from history");
+        System.out.println("3) clear history");
+        System.out.println("4) get mean of history");
+        System.out.println("5) get median of history");
+        System.out.println("6) perform another calculation");
 
         selection = input.nextLine();
 
@@ -113,8 +122,17 @@ public class InputOutput {
             printHistory(evaluator.getHistory());
         } else if (Objects.equals(selection, "2")) {
             System.out.println();
-            System.out.println("The mean of your calculations is:  " + evaluator.getHistory().mean());
+            this.deleteHistory();
         } else if (Objects.equals(selection, "3")) {
+            System.out.println();
+            history.clearHistory();
+        } else if (Objects.equals(selection, "4")) {
+            System.out.println();
+            System.out.println("The mean of your calculations is:  " + evaluator.getHistory().mean());
+        } else if (Objects.equals(selection, "5")) {
+            System.out.println();
+            System.out.println("The median of your calculations is:  " + evaluator.getHistory().mean());
+        } else if (Objects.equals(selection, "6")) {
             System.out.println();
             this.calculator();
         } else {
@@ -122,6 +140,20 @@ public class InputOutput {
             System.out.printf("Invalid Input, please select again: \n\n");
             this.menu();
         }
+    }
+
+
+    //NOTE: need to check properly for errors
+    //EFFECTS: helper method for menu() to prompt and gather input to delete an entry from the history.
+    private void deleteHistory() {
+        input = new Scanner(System.in);
+        String index = "";
+
+        System.out.println("Enter the line number of the entry you would like to delete:");
+        index = input.nextLine();
+        System.out.println();
+
+        history.delete(index.charAt(0) - '0');
     }
 
     //MODIFIES: this

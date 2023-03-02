@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 //Stores the history of calculations and has statistical methods to act upon them.
 public class CalculatorHistory {
     private ArrayList<Calculation> calculations = new ArrayList<>();
-    private ArrayList<Double> results = new ArrayList<>();
 
     public ArrayList<Calculation> getCalculations() {
         return calculations;
@@ -29,24 +30,54 @@ public class CalculatorHistory {
         return sum / calculations.size();
     }
 
-    /*public double median() {
+    public double median() {
+        ArrayList<Double> results = mapResults(calculations);
+        results.sort(Comparator.naturalOrder());
+
         int middle = 0;
 
         if (calculations.size() == 1) {
-            return calculations.get(0).getResult();
+            return results.get(0);
         } else if (calculations.size() == 2) {
-            return (calculations.get(0).getResult() + calculations.get(1).getResult()) / 2;
+            return (results.get(0) + results.get(1)) / 2;
         } else if (isEven(calculations.size())) {
-            middle = calculations.size() / 2;
-
-            return (calculations.get(middle).getResult() + calculations.get(middle + 1).getResult()) / 2;
+            middle = results.size() / 2;
+            return (results.get(middle) + results.get(middle + 1)) / 2;
         } else {
-            middle = (calculations.size() - 1) / 2;
-            return calculations.get(middle).getResult();
+            middle = (results.size() - 1) / 2;
+            return results.get(middle);
         }
-    }*/
+    }
 
-   /* private boolean isEven(int num) {
+
+    //EFFECTS: maps the ArrayList<Calculation> onto a new ArrayList<Double>. Helper for median()
+    private ArrayList<Double> mapResults(ArrayList<Calculation> calculations) {
+        ArrayList<Double> results = new ArrayList<>();
+
+        for (Calculation calculation : calculations) {
+            results.add(calculation.getResult());
+        }
+
+        return results;
+    }
+
+
+    //EFFECTS: checks if the given number is even. Helper for median()
+    private boolean isEven(int num) {
         return (num % 2) == 0;
-    }*/
+    }
+
+
+    //REQUIRES: a valid index for this.calculations.
+    //MODIFIES: this
+    //EFFECTS: removes the calculation at the given index from the history.
+    public void delete(int index) {
+        calculations.remove(index);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: clears history. (resets this.calculations to no elements)
+    public void clearHistory() {
+        calculations.clear();
+    }
 }
