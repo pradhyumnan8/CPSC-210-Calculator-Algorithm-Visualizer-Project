@@ -158,7 +158,7 @@ public class InputOutput {
 
     //MODIFIES: this
     //EFFECTS: main method to run all the methods for the calculator from getting input to getting input in the menu.
-    public int calculator() {
+    public void calculator() {
 
         input = new Scanner(System.in);
         expression = scanExpression();
@@ -173,10 +173,11 @@ public class InputOutput {
             quit = input.nextLine();
 
             if (Objects.equals("y", quit)) {
-                System.exit(1);
+                return;
             } else if (Objects.equals("n", quit)) {
                 System.out.println();
                 this.menu();
+                return;
             } else {
                 System.out.println("Invalid input");
             }

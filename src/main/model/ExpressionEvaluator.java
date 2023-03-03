@@ -177,8 +177,8 @@ public class ExpressionEvaluator {
         double num1 = 0;
         double num2 = 0;
         ExpressionStack stack = new ExpressionStack();
-     //   System.out.printf("\nBefore starting evaluation process:\n");
-    //    display.printStack(stack, 2);
+       // System.out.printf("\nBefore starting evaluation process:\n");
+       // display.printStack(stack, 2);
 
         while (temp != null) {
             if (isOperator(temp.getOperator())) {
