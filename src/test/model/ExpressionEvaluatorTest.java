@@ -2,6 +2,9 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.FileNotFoundException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ExpressionEvaluatorTest {
@@ -23,7 +26,7 @@ public class ExpressionEvaluatorTest {
 
 
     @Test
-    void testCalculateValue() {
+    void testCalculateValue() throws FileNotFoundException {
         assertEquals(30, evaluator.calculate(userExpression1));
         assertEquals(4, evaluator.calculate(userExpression2));
         assertEquals(2.2, evaluator.calculate(userExpression3));
@@ -65,7 +68,7 @@ public class ExpressionEvaluatorTest {
     }
 
     @Test
-    void testGetHistory() {
+    void testGetHistory() throws FileNotFoundException {
         evaluator.calculate(userExpression1);
         evaluator.calculate(userExpression2);
 
