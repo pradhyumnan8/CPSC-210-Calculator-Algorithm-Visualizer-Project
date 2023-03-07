@@ -80,7 +80,7 @@ public class CalculatorHistory implements Writable {
     //MODIFIES: this
     //EFFECTS: removes the calculation at the given index from the history.
     public void delete(int index) {
-        calculations.remove(index-1);
+        calculations.remove(index - 1);
     }
 
     //MODIFIES: this

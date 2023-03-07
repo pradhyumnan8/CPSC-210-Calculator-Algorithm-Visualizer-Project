@@ -227,7 +227,7 @@ public class ExpressionEvaluator {
 
     //MODIFIES: this
     //EFFECTS: calculates result from user input and clears the infix/postfix lists to be ready for next calculation
-    public double calculate(String userExpression) throws FileNotFoundException{
+    public double calculate(String userExpression) throws FileNotFoundException {
         this.isValid(userExpression);
         this.toInfix(userExpression);
         this.toPostfix();
