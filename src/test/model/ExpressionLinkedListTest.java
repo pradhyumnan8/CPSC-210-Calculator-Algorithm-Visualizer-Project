@@ -19,6 +19,9 @@ public class ExpressionLinkedListTest {
         node1.setOperand(1);
         node2.setOperand(2);
 
+        node1.setOperator('$');
+        node1.setOperator('$');
+
         emptyList = new ExpressionLinkedList();
         twoLongList = new ExpressionLinkedList();
 
@@ -50,6 +53,23 @@ public class ExpressionLinkedListTest {
     void testDeleteAfterNodeShouldReturnTrue() {
         twoLongList.deleteAfterHead(true);
         assertEquals(1, twoLongList.getListCount());
+    }
+
+    @Test
+    void testInsertAfterHeadChar() {
+        ExpressionLinkedList charList = new ExpressionLinkedList();
+        charList.insertAfterHead('$');
+
+        assertEquals('$', charList.head.getNext().getOperator());
+    }
+
+    @Test
+    void testGetHead() {
+        ExpressionNode newNode = twoLongList.head.getNext();
+
+        newNode = emptyList.getHead();
+
+        assertEquals(null, newNode.getNext());
     }
 
 

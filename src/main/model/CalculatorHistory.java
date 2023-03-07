@@ -91,6 +91,7 @@ public class CalculatorHistory implements Writable {
 
 
     @Override
+    //EFFECTS: converts the JSON Array returned by calculationsToJson to a JSON Object.
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("calculations", calculationsToJson());
@@ -99,7 +100,7 @@ public class CalculatorHistory implements Writable {
     }
 
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns ArrayList<Calculation> calculations as a JSON Array. helper for toJson()
     public JSONArray calculationsToJson() {
         JSONArray jsonArray = new JSONArray();
 
