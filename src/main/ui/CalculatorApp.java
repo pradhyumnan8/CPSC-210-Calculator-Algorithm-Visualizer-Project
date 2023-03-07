@@ -110,7 +110,7 @@ public class CalculatorApp {
         System.out.println("2) delete an entry from history");
         System.out.println("3) clear history");
         System.out.println("4) get mean of history");
-        System.out.println("5) get median of history");
+        //System.out.println("5) get median of history");
         System.out.println("6) perform a calculation");
         //System.out.println("7) load ");
 
@@ -128,9 +128,9 @@ public class CalculatorApp {
         } else if (Objects.equals(selection, "4")) {
             System.out.println();
             System.out.println("The mean of your calculations is:  " + evaluator.getHistory().mean());
-        } else if (Objects.equals(selection, "5")) {
-            System.out.println();
-            System.out.println("The median of your calculations is:  " + evaluator.getHistory().mean());
+//        } else if (Objects.equals(selection, "5")) {
+//            System.out.println();
+//            System.out.println("The median of your calculations is:  " + evaluator.getHistory().mean());
         } else if (Objects.equals(selection, "6")) {
             System.out.println();
             this.calculator();
@@ -171,7 +171,7 @@ public class CalculatorApp {
         }
 
         isFirstRun = false;
-        printHistory(this.history);
+      //  printHistory(this.history);
 
         expression = scanExpression();
         res = evaluator.calculate(expression);

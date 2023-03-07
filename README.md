@@ -32,7 +32,7 @@ Possible list of extra features:
 
 - As a user, I want to add my current calculation to a history of calculations.
 - As a user, I want to edit my history or clear it all-together. 
-- As a user, I want to calculate the mean of my history of calculation. 
+- As a user, I want to calculate the mean of my history of calculations. 
 - As a user, I want to calculate expressions of any length using the five basic functions (+, -, /, *, ^) and brackets.
 - As a user, I want to perform as many calculations as I want without having to rerun the program.
 - As a user, I want to be prompted to save my history of calculations before quitting the application if I so wish to do so.

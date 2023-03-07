@@ -38,7 +38,7 @@ public class CalculatorHistory implements Writable {
         return sum / calculations.size();
     }
 
-    public double median() {
+    /*public double median() {
         ArrayList<Double> results = mapResults(calculations);
         results.sort(Comparator.naturalOrder());
 
@@ -73,7 +73,7 @@ public class CalculatorHistory implements Writable {
     //EFFECTS: checks if the given number is even. Helper for median()
     private boolean isEven(int num) {
         return (num % 2) == 0;
-    }
+    }*/
 
 
     //REQUIRES: a valid index for this.calculations.
