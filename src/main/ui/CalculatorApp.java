@@ -240,6 +240,7 @@ public class CalculatorApp {
             //history = jsonReader.read();
             ArrayList<Calculation> newHistory = jsonReader.read();
             this.history.setCalculations(newHistory);
+            this.evaluator.getHistory().setCalculations(newHistory);
             System.out.println("History has been successfully loaded from  " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
