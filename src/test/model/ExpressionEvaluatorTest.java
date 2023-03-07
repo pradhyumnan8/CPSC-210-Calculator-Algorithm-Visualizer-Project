@@ -56,7 +56,7 @@ public class ExpressionEvaluatorTest {
         assertFalse(evaluator.isValid("3+*2"));
         assertFalse(evaluator.isValid("3+(4+7))*2"));
         assertFalse(evaluator.isValid("3+(4+7))*2"));
-        assertFalse(evaluator.isValid("+++++"));
+        assertFalse(evaluator.isValid("3+++++"));
     }
 
     @Test
