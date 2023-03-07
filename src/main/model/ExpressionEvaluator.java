@@ -1,7 +1,8 @@
 package model;
 
-import ui.InputOutput;
+import ui.CalculatorApp;
 
+import java.io.FileNotFoundException;
 import java.util.Stack;
 
 // main model class to test validity of user expression and calculate answer (by converting to infix then postfix).
@@ -171,8 +172,8 @@ public class ExpressionEvaluator {
 
     //MODIFIES: this
     //EFFECTS: evaluates the postfix expression
-    private void evaluate() {
-        InputOutput display = new InputOutput();
+    private void evaluate() throws FileNotFoundException {
+        CalculatorApp display = new CalculatorApp();
         ExpressionNode temp = postfixList.head.getNext();
         double num1 = 0;
         double num2 = 0;
@@ -226,7 +227,7 @@ public class ExpressionEvaluator {
 
     //MODIFIES: this
     //EFFECTS: calculates result from user input and clears the infix/postfix lists to be ready for next calculation
-    public double calculate(String userExpression) {
+    public double calculate(String userExpression) throws FileNotFoundException{
         this.isValid(userExpression);
         this.toInfix(userExpression);
         this.toPostfix();

@@ -1,15 +1,23 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
 //Stores the history of calculations and has statistical methods to act upon them.
-public class CalculatorHistory {
+public class CalculatorHistory implements Writable {
     private ArrayList<Calculation> calculations = new ArrayList<>();
 
     public ArrayList<Calculation> getCalculations() {
         return calculations;
+    }
+
+    public void setCalculations(ArrayList<Calculation> calculations) {
+        this.calculations = calculations;
     }
 
     public void addCalculation(Calculation newCalculation) {
@@ -79,5 +87,26 @@ public class CalculatorHistory {
     //EFFECTS: clears history. (resets this.calculations to no elements)
     public void clearHistory() {
         calculations.clear();
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("calculations", calculationsToJson());
+
+        return json;
+    }
+
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    public JSONArray calculationsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Calculation calculation : calculations) {
+            jsonArray.put(calculation.toJson());
+        }
+
+        return jsonArray;
     }
 }

@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 //Class to hold each calculation. That is, the expression inputted by the user as well as the result calculated
-public class Calculation {
+public class Calculation implements Writable {
     private String expression;
     private double result;
 
@@ -21,5 +24,14 @@ public class Calculation {
     //EFFECTS: returns result.
     public double getResult() {
         return result;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("expression", expression);
+        json.put("result", result);
+
+        return json;
     }
 }

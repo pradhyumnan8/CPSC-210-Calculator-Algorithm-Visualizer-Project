@@ -1,22 +1,38 @@
 package ui;
 
-import model.CalculatorHistory;
-import model.ExpressionEvaluator;
-import model.ExpressionNode;
-import model.ExpressionStack;
+import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.Stack;
 
 
 //Acts as the user interface by prompting the user for inputs and displaying outputs onto the screen.
-public class InputOutput {
+public class CalculatorApp {
 
-    private Scanner input = new Scanner(System.in);
-    private ExpressionEvaluator evaluator = new ExpressionEvaluator();
-    private CalculatorHistory history = new CalculatorHistory();
+    private static final String JSON_STORE = "./data/calculations.json";
+    private Scanner input;
+    private ExpressionEvaluator evaluator;
+    private CalculatorHistory history;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private String expression;
+    boolean isFirstRun;
+
+
+    // EFFECTS: constructs workroom and runs application
+    public CalculatorApp() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        evaluator = new ExpressionEvaluator();
+        history = new CalculatorHistory();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        isFirstRun = true;
+    }
 
 
     //MODIFIES: this
@@ -47,7 +63,7 @@ public class InputOutput {
             System.out.println("There is nothing in your history");
         } else {
             for (int i = 0; i < history.getCalculations().size(); i++) {
-                System.out.printf("%d) Expression: %s      Result: %f\n", i+1,
+                System.out.printf("%d) Expression: %s      Result: %f\n", i + 1,
                         history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
             }
         }
@@ -79,31 +95,13 @@ public class InputOutput {
                 System.out.printf("[%f]\n", temp.getOperand());
             }
         }
-
-
-
-//        if (temp == null) {
-//            System.out.println("The stack is empty");
-//        } else if (choice == 0) {
-//            while (temp != null) {
-//                System.out.printf("[%c  $f]\n", temp.getOperator(), temp.getOperand());
-//            }
-//        } else if (choice == 1) {
-//            while (temp != null) {
-//                System.out.printf("[%c]\n", temp.getOperator());
-//            }
-//        } else {
-//            while (temp != null) {
-//                System.out.printf("[$f]\n", temp.getOperand());
-//            }
-//        }
     }
 
 
     //REQUIRES: Input must be valid
     //EFFECTS: Provides the user with a menu to continue operating the program.
     @SuppressWarnings("methodlength")
-    public void menu() {
+    public void menu() throws FileNotFoundException {
         String selection = "";
         input = new Scanner(System.in);
 
@@ -113,7 +111,8 @@ public class InputOutput {
         System.out.println("3) clear history");
         System.out.println("4) get mean of history");
         System.out.println("5) get median of history");
-        System.out.println("6) perform another calculation");
+        System.out.println("6) perform a calculation");
+        //System.out.println("7) load ");
 
         selection = input.nextLine();
 
@@ -158,29 +157,94 @@ public class InputOutput {
 
     //MODIFIES: this
     //EFFECTS: main method to run all the methods for the calculator from getting input to getting input in the menu.
-    public void calculator() {
+    @SuppressWarnings("methodlength")
+    public void calculator() throws FileNotFoundException {
+        double res;
+        String shouldQuit;
 
         input = new Scanner(System.in);
+
+        if (isFirstRun) {
+            if (loadPrompt()) {
+                this.load();
+            }
+        }
+
+        isFirstRun = false;
+        printHistory(this.history);
+
         expression = scanExpression();
-        double res = evaluator.calculate(expression);
+        res = evaluator.calculate(expression);
         history = evaluator.getHistory();
-        String quit;
 
         System.out.printf("The answer is: %f\n\n", res);
 
         while (true) {
             System.out.println("Do you want to quit the application [y/n]?");
-            quit = input.nextLine();
+            shouldQuit = input.nextLine();
 
-            if (Objects.equals("y", quit)) {
-                return;
-            } else if (Objects.equals("n", quit)) {
+            if (Objects.equals("y", shouldQuit)) {
+                if (savePrompt()) {
+                    this.save();
+                }
+
+                System.exit(1);
+            } else if (Objects.equals("n", shouldQuit)) {
                 System.out.println();
                 this.menu();
-                return;
+                //return;
             } else {
                 System.out.println("Invalid input");
             }
         }
     }
+
+    //EFFECTS: helper function for menu(). Returns true if user decides to save the application and false otherwise.
+    private boolean savePrompt() {
+        input = new Scanner(System.in);
+        String shouldSave = "";
+
+        System.out.println("Do you want to save the application before quitting? [y/n]?");
+        shouldSave = input.nextLine();
+
+        return shouldSave.equals("y");
+    }
+
+    //EFFECTS: helper function for menu(). Returns true if user decides to load the application and false otherwise.
+    private boolean loadPrompt() {
+        input = new Scanner(System.in);
+        String shouldLoad = "";
+
+        System.out.println("Do you want to load the application from previous save? [y/n]?");
+        shouldLoad = input.nextLine();
+
+        return shouldLoad.equals("y");
+    }
+
+    //EFFECTS: saves the application (history) to file
+    private void save() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(history);
+            jsonWriter.close();
+            System.out.println("History has been successfully saved at  " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads the application (history) from file
+    private void load() {
+        try {
+            //history = jsonReader.read();
+            ArrayList<Calculation> newHistory = jsonReader.read();
+            this.history.setCalculations(newHistory);
+            System.out.println("History has been successfully loaded from  " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+
 }
