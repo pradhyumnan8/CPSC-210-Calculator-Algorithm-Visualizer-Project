@@ -4,6 +4,8 @@ import model.Calculation;
 import model.CalculatorHistory;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -39,7 +41,9 @@ public class JsonReaderTest extends JsonTest {
             history.clearHistory();
             CalculatorHistory newHistory = new CalculatorHistory();
 
-            newHistory.setCalculations(reader.read());
+            ArrayList<Calculation> jsonOutput = reader.read();
+
+            newHistory.setCalculations(jsonOutput);
             assertEquals(1, newHistory.getCalculations().size());
         } catch (IOException e) {
             fail("Couldn't read from file");

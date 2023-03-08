@@ -32,9 +32,14 @@ public class ExpressionStack extends ExpressionLinkedList {
     //MODIFIES: this
     //EFFECTS: pops and returns the top node if specified as such
     public ExpressionNode pop(boolean shouldReturn) {
+        ExpressionNode temp = new ExpressionNode();
+
+        temp = super.deleteAfterHead(shouldReturn);
+
         topIndex--;
         top = head.getNext();
-        return super.deleteAfterHead(shouldReturn);
+
+        return temp;
     }
 
 
