@@ -15,9 +15,9 @@ the project but progress will be evident in the later phases of the project.
 
 
 
-
-- Expression solver with support for basic functions (+, -, /, *, ^). Negative numbers are not supported right now.
-A list of features the application will include:
+**A list of features the application will include:**   
+- Expression solver with support for basic functions (+, -, /, *, ^). Single number calculations are not supported right 
+now (eg asking what is the result of "2" or "-2").
 - A history function that will allow you to view and select previous calculations 
 - Statistical functions (mean, median etc.) that can be run on your history.
 - A toggleable stack visualizer that shows data flow through the stack at each point.  

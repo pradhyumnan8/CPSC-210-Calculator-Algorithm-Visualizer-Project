@@ -109,7 +109,6 @@ public class ExpressionEvaluator {
     //REQUIRES: assumes a proper and valid user expression
     //MODIFIES: this
     //EFFECTS: converts the user given string to an infix expression
-    @SuppressWarnings("methodlength")
     private void toInfix(String userExpression) {
         String num = "";
         int i = 0;
@@ -123,10 +122,7 @@ public class ExpressionEvaluator {
                     prevWasOperand = false;
                 }
                 infixList.insertAtEnd(userExpression.charAt(i));
-            } else if ((isNumber(userExpression.charAt(i)))) {
-                num += userExpression.charAt(i);
-                prevWasOperand = true;
-            } else if ((userExpression.charAt(i) == '.')) {
+            } else { //if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.')) {
                 num += userExpression.charAt(i);
                 prevWasOperand = true;
             }
@@ -138,15 +134,12 @@ public class ExpressionEvaluator {
         }
     }
 
-//} else if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.')) {
-//        num += userExpression.charAt(i);
-//        prevWasOperand = true;
-//        }
+
 
     //REQUIRES: assumes a proper and valid infix list
     //MODIFIES: this
     //EFFECTS: converts an infix expression to a postfix expression
-    @SuppressWarnings("methodlength")
+    //@SuppressWarnings("methodlength")
     private void toPostfix() {
         ExpressionNode temp = infixList.head.getNext();
         Stack<ExpressionNode> stack = new Stack<>();
@@ -172,6 +165,14 @@ public class ExpressionEvaluator {
             }
         }
 
+        this.emptyStackToPostfix(stack);
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: helper method for toPostFix() to avoid exceeding method length limitations.
+    //         Empties all the remaining operators in the stack into postFix list.
+    private void emptyStackToPostfix(Stack<ExpressionNode> stack) {
         while (!stack.empty()) {
             postfixList.insertAtEnd(stack.pop().getOperator());
         }

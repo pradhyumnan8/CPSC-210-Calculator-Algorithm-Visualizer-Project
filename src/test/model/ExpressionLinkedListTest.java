@@ -71,7 +71,4 @@ public class ExpressionLinkedListTest {
 
         assertEquals(null, newNode.getNext());
     }
-
-
-
 }

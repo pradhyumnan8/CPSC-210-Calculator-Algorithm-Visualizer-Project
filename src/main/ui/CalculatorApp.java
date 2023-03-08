@@ -157,24 +157,17 @@ public class CalculatorApp {
 
     //MODIFIES: this
     //EFFECTS: main method to run all the methods for the calculator from getting input to getting input in the menu.
-    @SuppressWarnings("methodlength")
     public void calculator() throws FileNotFoundException {
-        double res;
         String shouldQuit;
 
         input = new Scanner(System.in);
 
-        if (isFirstRun) {
-            if (loadPrompt()) {
-                this.load();
-            }
-        }
+        decideLoad();
 
         isFirstRun = false;
-      //  printHistory(this.history);
 
         expression = scanExpression();
-        res = evaluator.calculate(expression);
+        double res = evaluator.calculate(expression);
         history = evaluator.getHistory();
 
         System.out.printf("The answer is: %f\n\n", res);
@@ -195,6 +188,16 @@ public class CalculatorApp {
                 //return;
             } else {
                 System.out.println("Invalid input");
+            }
+        }
+    }
+
+    //EFFECTS: helper method for calculator(). Decides whether this is the first time we launch the program and prompts
+    //         user to load from save.
+    private void decideLoad() {
+        if (isFirstRun) {
+            if (loadPrompt()) {
+                this.load();
             }
         }
     }
