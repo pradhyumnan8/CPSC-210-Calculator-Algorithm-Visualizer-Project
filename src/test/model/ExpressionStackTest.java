@@ -44,6 +44,16 @@ public class ExpressionStackTest {
     }
 
     @Test
+    void testGetTop() {
+
+        assertTrue(emptyStack.getTop() == null);
+
+        emptyStack.push(2);
+
+        assertFalse(emptyStack.getTop() == null);
+    }
+
+    @Test
     void testIsEmptyTrue() {
         assertTrue(emptyStack.isEmpty());
     }
