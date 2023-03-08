@@ -109,6 +109,7 @@ public class ExpressionEvaluator {
     //REQUIRES: assumes a proper and valid user expression
     //MODIFIES: this
     //EFFECTS: converts the user given string to an infix expression
+    @SuppressWarnings("methodlength")
     private void toInfix(String userExpression) {
         String num = "";
         int i = 0;
@@ -122,7 +123,10 @@ public class ExpressionEvaluator {
                     prevWasOperand = false;
                 }
                 infixList.insertAtEnd(userExpression.charAt(i));
-            } else if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.')) {
+            } else if ((isNumber(userExpression.charAt(i)))) {
+                num += userExpression.charAt(i);
+                prevWasOperand = true;
+            } else if ((userExpression.charAt(i) == '.')) {
                 num += userExpression.charAt(i);
                 prevWasOperand = true;
             }
@@ -134,6 +138,10 @@ public class ExpressionEvaluator {
         }
     }
 
+//} else if ((isNumber(userExpression.charAt(i))) || (userExpression.charAt(i) == '.')) {
+//        num += userExpression.charAt(i);
+//        prevWasOperand = true;
+//        }
 
     //REQUIRES: assumes a proper and valid infix list
     //MODIFIES: this
