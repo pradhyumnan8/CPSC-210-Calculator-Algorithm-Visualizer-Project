@@ -1,0 +1,14 @@
+{"calculations": [
+    {
+        "result": 6,
+        "expression": "3+3"
+    },
+    {
+        "result": 121,
+        "expression": "23+98"
+    },
+    {
+        "result": 4,
+        "expression": "2+2"
+    }
+]}
