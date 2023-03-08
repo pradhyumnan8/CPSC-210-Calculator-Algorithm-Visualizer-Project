@@ -139,7 +139,6 @@ public class ExpressionEvaluator {
     //REQUIRES: assumes a proper and valid infix list
     //MODIFIES: this
     //EFFECTS: converts an infix expression to a postfix expression
-    //@SuppressWarnings("methodlength")
     private void toPostfix() {
         ExpressionNode temp = infixList.head.getNext();
         Stack<ExpressionNode> stack = new Stack<>();
