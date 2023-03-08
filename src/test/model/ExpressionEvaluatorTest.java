@@ -13,6 +13,7 @@ public class ExpressionEvaluatorTest {
     String userExpression2;
     String userExpression3;
     String userExpression4;
+    String userExpression5;
     ExpressionEvaluator evaluator;
 
     @BeforeEach
@@ -21,6 +22,7 @@ public class ExpressionEvaluatorTest {
         userExpression2 = "2^2";
         userExpression3 = "1.1+1.1";
         userExpression4 = "2*(2.2+2.8)^8-45/23^3^4*2";
+        userExpression5 = "1-(0-1)";
         evaluator = new ExpressionEvaluator();
     }
 
@@ -31,6 +33,7 @@ public class ExpressionEvaluatorTest {
         assertEquals(4, evaluator.calculate(userExpression2));
         assertEquals(2.2, evaluator.calculate(userExpression3));
         assertEquals(781250, evaluator.calculate(userExpression4));
+        assertEquals(2, evaluator.calculate(userExpression5));
     }
 
     @Test

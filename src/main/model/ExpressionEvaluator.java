@@ -84,7 +84,7 @@ public class ExpressionEvaluator {
                     leftBracketCount++;
                 } else if (userExpression.charAt(i) == ')') {
                     rightBracketCount++;
-                } else if (isOperator(prev) && (prev != ')') && (prev != '(')) {
+                } else if (isOperator(prev) && (prev != ')') /*&& (prev != '(')*/) {
                     return false;
                 }
             } else if ((!isNumber(userExpression.charAt(i))) && (userExpression.charAt(i) != '.')) {
