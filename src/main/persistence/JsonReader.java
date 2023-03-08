@@ -28,7 +28,6 @@ public class JsonReader {
     public ArrayList<Calculation> read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        //return parseCalculatorHistory(jsonObject);
         parseHistory(jsonObject);
         return this.history;
     }
@@ -45,7 +44,7 @@ public class JsonReader {
     }
 
     // MODIFIES: history
-    // EFFECTS: parses calculations (history) from JSONARRAY and converts it into an ArrayList<Calculation>
+    // EFFECTS: parses calculations (history) from JSON ARRAY and converts it into an ArrayList<Calculation>
     private void parseHistory(JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("calculations");
         for (Object json : jsonArray) {
@@ -55,7 +54,7 @@ public class JsonReader {
     }
 
     // MODIFIES: history
-    // EFFECTS: parses each JSON Object in JSONARRAY and converts it into a Calculation. Helper for parseHistory()
+    // EFFECTS: parses each JSON Object in JSON ARRAY and converts it into a Calculation. Helper for parseHistory()
     private void addCalculation(JSONObject jsonObject) {
         String expression = jsonObject.getString("expression");
         double result = jsonObject.getDouble("result");

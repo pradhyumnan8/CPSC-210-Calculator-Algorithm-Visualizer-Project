@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CalculatorHistoryTest {
     Calculation calc1;
     Calculation calc2;
+    Calculation calc3;
 
     CalculatorHistory history;
 
@@ -18,6 +21,7 @@ public class CalculatorHistoryTest {
     void runBefore() {
         calc1 = new Calculation("1+1", 2);
         calc2 = new Calculation("1+1", 2);
+        calc3 = new Calculation("1+3", 4);
 
         history = new CalculatorHistory();
     }
@@ -82,5 +86,37 @@ public class CalculatorHistoryTest {
         assertEquals(2, history.getCalculations().size());
 
         assertEquals(2, history.getCalculations().get(0).getResult());
+    }
+
+    @Test
+    void calculationsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        history.addCalculation(calc1);
+        history.addCalculation(calc3);
+
+        jsonArray.put(history.getCalculations().get(0).toJson());
+        jsonArray.put(history.getCalculations().get(1).toJson());
+
+        assertEquals(jsonArray.get(0).toString(), "{\"result\":2,\"expression\":\"1+1\"}");
+        assertEquals(jsonArray.get(1).toString(), "{\"result\":4,\"expression\":\"1+3\"}");
+    }
+
+    @Test
+    void testToJson() {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        history.addCalculation(calc1);
+        history.addCalculation(calc3);
+
+        jsonArray.put(history.getCalculations().get(0).toJson());
+        jsonArray.put(history.getCalculations().get(1).toJson());
+
+        jsonObject.put("calculations", jsonArray);
+
+        String jsonArrayAsString = "[{\"result\":2,\"expression\":\"1+1\"},{\"result\":4,\"expression\":\"1+3\"}]";
+
+        assertEquals(jsonObject.get("calculations").toString(), jsonArrayAsString);
     }
 }
