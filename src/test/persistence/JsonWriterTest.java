@@ -46,12 +46,12 @@ public class JsonWriterTest extends JsonTest {
             history.addCalculation(calc1);
             history.addCalculation(calc2);
 
-            JsonWriter writer = new JsonWriter("./data/testWriterHistory.json");
+            JsonWriter jsonWriter = new JsonWriter("./data/testWriterHistory.json");
             newJson = history.toJson();
 
-            writer.open();
-            writer.write(history);
-            writer.close();
+            jsonWriter.open();
+            jsonWriter.write(history);
+            jsonWriter.close();
 
             history.clearHistory();
 
