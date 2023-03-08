@@ -3,6 +3,7 @@ package persistence;
 import model.Calculation;
 import model.CalculatorHistory;
 import model.ExpressionEvaluator;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,11 +40,15 @@ public class JsonWriterTest extends JsonTest {
     @Test
     void testWriterHistory() {
         try {
-            //CalculatorHistory history = new CalculatorHistory();
+            CalculatorHistory history = new CalculatorHistory();
+            JSONObject newJson = new JSONObject();
+
             history.addCalculation(calc1);
             history.addCalculation(calc2);
 
             JsonWriter writer = new JsonWriter("./data/testWriterHistory.json");
+            newJson = history.toJson();
+
             writer.open();
             writer.write(history);
             writer.close();

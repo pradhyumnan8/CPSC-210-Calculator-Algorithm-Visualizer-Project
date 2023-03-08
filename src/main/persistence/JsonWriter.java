@@ -26,7 +26,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of CalcualtorHistory to file
+    // EFFECTS: writes JSON representation of CalculatorHistory to file
     public void write(CalculatorHistory history) {
         JSONObject json = history.toJson();
         saveToFile(json.toString(TAB));
