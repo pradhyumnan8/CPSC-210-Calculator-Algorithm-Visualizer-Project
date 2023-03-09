@@ -27,6 +27,7 @@ public class Calculation implements Writable {
     }
 
     @Override
+    //EFFECTS: Converts each calculation to a JSON Object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("expression", expression);
