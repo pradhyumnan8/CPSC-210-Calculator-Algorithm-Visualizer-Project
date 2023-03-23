@@ -1,6 +1,6 @@
 package model;
 
-import ui.CalculatorApp;
+import ui.TerminalApp;
 
 import java.io.FileNotFoundException;
 import java.util.Stack;
@@ -181,7 +181,7 @@ public class ExpressionEvaluator {
     //MODIFIES: this
     //EFFECTS: evaluates the postfix expression
     private void evaluate() throws FileNotFoundException {
-        CalculatorApp display = new CalculatorApp();
+        TerminalApp display = new TerminalApp();
         ExpressionNode temp = postfixList.head.getNext();
         double num1 = 0;
         double num2 = 0;

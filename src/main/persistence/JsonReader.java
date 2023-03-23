@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+//This class was inspired by the JsonSerializationDemo example program.
 public class JsonReader {
     private String source;
     private ArrayList<Calculation> history;

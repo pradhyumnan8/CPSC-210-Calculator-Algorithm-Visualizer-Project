@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 
 //Acts as the user interface by prompting the user for inputs and displaying outputs onto the screen.
-public class CalculatorApp {
+public class TerminalApp {
 
     private static final String JSON_STORE = "./data/calculations.json";
     private Scanner input;
@@ -25,7 +25,7 @@ public class CalculatorApp {
 
 
     // EFFECTS: constructs workroom and runs application
-    public CalculatorApp() throws FileNotFoundException {
+    public TerminalApp() throws FileNotFoundException {
         input = new Scanner(System.in);
         evaluator = new ExpressionEvaluator();
         history = new CalculatorHistory();
