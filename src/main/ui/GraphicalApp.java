@@ -1,30 +1,27 @@
 package ui;
 
-import javax.swing.*;
+import model.CalculatorHistory;
+import model.ExpressionEvaluator;
 
-public class GraphicalApp {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+
+public class GraphicalApp implements ActionListener {
+    final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "Unable to run application: file not found";
+
+    CalculatorHistory history;
+    ExpressionEvaluator evaluator;
+
     private JFrame frame;
     private JTextArea display;
 
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JButton button7;
-    private JButton button8;
-    private JButton button9;
-    private JButton button0;
+    private JButton[] numButton;
+    private JButton[] oppButton;
 
-    private JButton buttonAdd;
-    private JButton buttonSubtract;
-    private JButton buttonMultiply;
-    private JButton buttonDivide;
-    private JButton buttonPower;
-    private JButton buttonLeftBracket;
-    private JButton buttonRightBracket;
-    private JButton buttonEqual;
+    private JButton[] funcButton;
+
 
     private JButton buttonViewHistory;
     private JButton buttonMean;
@@ -32,95 +29,180 @@ public class GraphicalApp {
     private JButton buttonLoad;
 
 
-
-
-
     GraphicalApp() {
+        history = new CalculatorHistory();
+        evaluator = new ExpressionEvaluator();
+
         final int WIDTH = 90;
-        final int HEIGHT = 70;
-        final int PADDING = 10;
+        final int HEIGHT = 65;
+        final int PADDING = 7;
 
         final int ROW1 = 120;
-        final int ROW2 = ROW1 + HEIGHT + 20;
-        final int ROW3 = ROW2 + HEIGHT + 20;
+        final int ROW2 = ROW1 + HEIGHT + PADDING;
+        final int ROW3 = ROW2 + HEIGHT + PADDING;
+        final int ROW4 = ROW3 + HEIGHT + PADDING;
+        final int ROW5 = ROW4 + HEIGHT + PADDING;
 
         final int COL1 = 10;
-        final int COL2 = COL1 + 10;
-        final int COL3 = COL2 + 10;
+        final int COL2 = COL1 + WIDTH + PADDING;
+        final int COL3 = COL2 + WIDTH + PADDING;
+        final int COL4 = COL3 + WIDTH + PADDING;
+        final int COL5 = COL4 + WIDTH + PADDING;
 
-        button1 = new JButton("1");
-        button2 = new JButton("2");
-        button3 = new JButton("3");
-        button4 = new JButton("4");
-        button5 = new JButton("5");
-        button6 = new JButton("6");
-        button7 = new JButton("7");
-        button8 = new JButton("8");
-        button9 = new JButton("9");
-        button0 = new JButton("0");
+        String[] operations = {"+", "-", "*", "/", "^", "(", ")", "=", "."};
+        //String[] functions = {"History", "Mean", "Save", "Load"};
 
-        buttonAdd = new JButton("+");
-        buttonSubtract = new JButton("-");
-        buttonMultiply = new JButton("*");
-        buttonDivide = new JButton("/");
-        buttonPower = new JButton("^");
-        buttonLeftBracket = new JButton("(");
-        buttonRightBracket = new JButton(")");
-        buttonEqual = new JButton("=");
+        frame = new JFrame("Calculator");
+        display = new JTextArea();
+        numButton = new JButton[10];
+        oppButton = new JButton[operations.length];
 
-        buttonViewHistory = new JButton("History");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 500);
+        frame.setLayout(null);
+        frame.setVisible(true);
+
+        display.setBounds(10, 10, 480, 100);
+
+        frame.add(display);
+
+        buttonViewHistory = new JButton("View");
+        buttonViewHistory.addActionListener(this);
+        buttonViewHistory.setFocusable(false);
+        frame.add(buttonViewHistory);
+
+
+        for (int i = 0; i <= 9; i++) {
+            numButton[i] = new JButton(String.valueOf(i));
+            numButton[i].addActionListener(this);
+            numButton[i].setFocusable(false);
+            frame.add(numButton[i]);
+        }
+
+        for (int i = 0; i < operations.length; i++) {
+            oppButton[i] = new JButton(operations[i]);
+            oppButton[i].addActionListener(this);
+            oppButton[i].setFocusable(false);
+            frame.add(oppButton[i]);
+        }
+
+
+        //buttonViewHistory = new JButton("History");
         buttonMean = new JButton("Mean");
         buttonSave = new JButton("Save");
         buttonLoad = new JButton("Load");
 
 
-        button1.setBounds(10, ROW1, WIDTH, HEIGHT );
-        button2.setBounds(button1.getX() + WIDTH + PADDING, ROW1, WIDTH, HEIGHT );
-        button3.setBounds(button2.getX() + WIDTH + PADDING, ROW1, WIDTH, HEIGHT );
 
-        button4.setBounds(10, ROW2, WIDTH, HEIGHT );
-        button5.setBounds(button4.getX() + WIDTH + PADDING, ROW2, WIDTH, HEIGHT );
-        button6.setBounds(button5.getX() + WIDTH + PADDING, ROW2, WIDTH, HEIGHT );
+        //LAYOUT OF FIRST NUM ROW
+        numButton[1].setBounds(COL1, ROW1, WIDTH, HEIGHT);
+        numButton[2].setBounds(COL2, ROW1, WIDTH, HEIGHT);
+        numButton[3].setBounds(COL3, ROW1, WIDTH, HEIGHT);
+        oppButton[0].setBounds(COL4, ROW1, WIDTH, HEIGHT);
+        oppButton[1].setBounds(COL5, ROW1, WIDTH, HEIGHT);
 
+        //LAYOUT OF SECOND NUM ROW
+        numButton[4].setBounds(COL1, ROW2, WIDTH, HEIGHT);
+        numButton[5].setBounds(COL2, ROW2, WIDTH, HEIGHT);
+        numButton[6].setBounds(COL3, ROW2, WIDTH, HEIGHT);
+        oppButton[2].setBounds(COL4, ROW2, WIDTH, HEIGHT);
+        oppButton[3].setBounds(COL5, ROW2, WIDTH, HEIGHT);
 
-        button7.setBounds(10, ROW3, WIDTH, HEIGHT );
-        button8.setBounds(button7.getX() + WIDTH + PADDING, ROW3, WIDTH, HEIGHT );
-        button9.setBounds(button8.getX() + WIDTH + PADDING, ROW3, WIDTH, HEIGHT );
+        //LAYOUT OF THIRD NUM ROW
+        numButton[7].setBounds(COL1, ROW3, WIDTH, HEIGHT);
+        numButton[8].setBounds(COL2, ROW3, WIDTH, HEIGHT);
+        numButton[9].setBounds(COL3, ROW3, WIDTH, HEIGHT);
+        oppButton[5].setBounds(COL4, ROW3, WIDTH, HEIGHT);
+        oppButton[6].setBounds(COL5, ROW3, WIDTH, HEIGHT);
 
+        numButton[0].setBounds(COL1, ROW4, 2 * WIDTH + PADDING, HEIGHT);
+        oppButton[7].setBounds(COL3, ROW4, WIDTH, HEIGHT);
+        oppButton[8].setBounds(COL4, ROW4, WIDTH, HEIGHT);
+        oppButton[4].setBounds(COL5, ROW4, WIDTH, HEIGHT);
 
-
-
-        frame = new JFrame("GUI");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-
-        frame.setLayout(null);
-
-        display = new JTextArea();
-        display.setBounds(10, 10, 480, 100);
-
-
-
-        frame.add(display);
-
-        frame.add(button0);
-        frame.add(button1);
-        frame.add(button2);
-        frame.add(button3);
-        frame.add(button4);
-        frame.add(button5);
-        frame.add(button6);
-        frame.add(button7);
-        frame.add(button8);
-        frame.add(button9);
-        frame.add(button0);
-
-        frame.add(buttonAdd);
-        frame.add(buttonMultiply);
-        frame.add(buttonDivide);
-
-        frame.setVisible(true);
+        buttonViewHistory.setBounds(COL1, ROW5, WIDTH, HEIGHT);
     }
 
+
+    @Override
+    //MODIFIES: this
+    //EFFECTS: whenever a button is pressed, perfoms the appropriate action (eg. displaying number)
+    public void actionPerformed(ActionEvent event) {
+
+
+        for (int i = 0; i <= 9; i++) {
+            if (event.getSource() == numButton[i]) {
+                display.setText(display.getText().concat(numButton[i].getText()));
+            }
+        }
+
+        for (int i = 0; i < oppButton.length; i++) {
+            if (event.getSource() == oppButton[i]) {
+                if (oppButton[i].getText().equals("=")) {
+                    try {
+                        display.setText(String.valueOf(evaluator.calculate(display.getText())));
+                        this.history = evaluator.getHistory();
+                        break;
+                    } catch (FileNotFoundException exception) {
+                        display.setText(FILE_NOT_FOUND_EXCEPTION_MESSAGE);
+                    }
+                }
+
+                display.setText(display.getText().concat(oppButton[i].getText()));
+            }
+        }
+
+        if (event.getSource() == buttonViewHistory) {
+           // try {
+                //display.setText(historyToString(history));
+            display.setRows(history.getCalculations().size());
+            for (int j = 0; j < history.getCalculations().size(); j++) {
+                //display.setText(display.getText().concat("\n" + "Expression:  " +  history.getCalculations().get(j).getExpression() + "   " + "Result:   " + String.valueOf(history.getCalculations().get(j).getResult())));
+                display.setText(historyToString(history));
+            }
+        //    } catch (FileNotFoundException exception) {
+         //       display.setText(FILE_NOT_FOUND_EXCEPTION_MESSAGE);
+        //    }
+        }
+
+    }
+
+
+    public String historyToString(CalculatorHistory history) {
+        String historyAsString = new String();
+
+        if (history.getCalculations().size() == 0) {
+            return "History is Empty";
+        } else {
+            for (int i = 0; i < history.getCalculations().size(); i++) {
+
+                //historyAsString.concat( "\n" + String.valueOf(i + 1) + "Expression: " + history.getCalculations().get(i).getExpression() + "     " + "Result" + String.valueOf(history.getCalculations().get(i).getResult()));
+                //historyAsString.concat("+" + String.valueOf(i));
+                //historyAsString = historyAsString + "hello";
+
+
+//                System.out.printf("%d) Expression: %s      Result: %f\n", i + 1,
+//                        history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
+            }
+        }
+        printHistory(history);
+        System.out.println(historyAsString);
+
+        return historyAsString;
+    }
+
+
+    public void printHistory(CalculatorHistory history) {
+
+        if (history.getCalculations().size() == 0) {
+            System.out.println("There is nothing in your history");
+        } else {
+            for (int i = 0; i < history.getCalculations().size(); i++) {
+                System.out.printf("%d) Expression: %s      Result: %f\n", i + 1,
+                        history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
+            }
+        }
+        System.out.println();
+    }
 
 }

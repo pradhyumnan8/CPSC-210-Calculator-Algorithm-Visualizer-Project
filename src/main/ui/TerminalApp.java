@@ -24,7 +24,7 @@ public class TerminalApp {
     boolean isFirstRun;
 
 
-    // EFFECTS: constructs workroom and runs application
+    // EFFECTS: constructs a new TerminalApp() and runs application
     public TerminalApp() throws FileNotFoundException {
         input = new Scanner(System.in);
         evaluator = new ExpressionEvaluator();
