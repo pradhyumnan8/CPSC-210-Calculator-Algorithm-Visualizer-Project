@@ -126,13 +126,12 @@ public class GraphicalApp implements ActionListener {
 
     @Override
     //MODIFIES: this
-    //EFFECTS: whenever a button is pressed, perfoms the appropriate action (eg. displaying number)
+    //EFFECTS: whenever a button is pressed, performs the appropriate action (eg. displaying number)
     public void actionPerformed(ActionEvent event) {
-
 
         for (int i = 0; i <= 9; i++) {
             if (event.getSource() == numButton[i]) {
-                display.setText(display.getText().concat(numButton[i].getText()));
+                display.append(numButton[i].getText());
             }
         }
 
@@ -148,26 +147,20 @@ public class GraphicalApp implements ActionListener {
                     }
                 }
 
-                display.setText(display.getText().concat(oppButton[i].getText()));
+                display.append(oppButton[i].getText());
             }
         }
 
         if (event.getSource() == buttonViewHistory) {
-           // try {
-                //display.setText(historyToString(history));
-            display.setRows(history.getCalculations().size());
-            for (int j = 0; j < history.getCalculations().size(); j++) {
-                //display.setText(display.getText().concat("\n" + "Expression:  " +  history.getCalculations().get(j).getExpression() + "   " + "Result:   " + String.valueOf(history.getCalculations().get(j).getResult())));
-                display.setText(historyToString(history));
-            }
-        //    } catch (FileNotFoundException exception) {
-         //       display.setText(FILE_NOT_FOUND_EXCEPTION_MESSAGE);
-        //    }
+            display.setText("History");
+            display.append(historyToString(this.history));
         }
 
     }
 
 
+    //EFFECTS: returns the history List inside passed history parameter as a String ready for printing.
+    //         Helper to actionPerformed().
     public String historyToString(CalculatorHistory history) {
         String historyAsString = new String();
 
@@ -175,18 +168,10 @@ public class GraphicalApp implements ActionListener {
             return "History is Empty";
         } else {
             for (int i = 0; i < history.getCalculations().size(); i++) {
-
-                //historyAsString.concat( "\n" + String.valueOf(i + 1) + "Expression: " + history.getCalculations().get(i).getExpression() + "     " + "Result" + String.valueOf(history.getCalculations().get(i).getResult()));
-                //historyAsString.concat("+" + String.valueOf(i));
-                //historyAsString = historyAsString + "hello";
-
-
-//                System.out.printf("%d) Expression: %s      Result: %f\n", i + 1,
-//                        history.getCalculations().get(i).getExpression(), history.getCalculations().get(i).getResult());
+                historyAsString += ( "\n" + (i + 1) + ") " + history.getCalculations().get(i).getExpression() + "  =  "
+                                   + history.getCalculations().get(i).getResult());
             }
         }
-        printHistory(history);
-        System.out.println(historyAsString);
 
         return historyAsString;
     }
