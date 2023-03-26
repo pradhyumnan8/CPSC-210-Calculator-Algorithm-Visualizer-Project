@@ -7,6 +7,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -26,6 +27,7 @@ public class GraphicalApp implements ActionListener {
     private JFrame frame;
     private JTextArea display;
     private JPopupMenu historyMenu;
+    private JPanel panel;
 
 
 
@@ -73,6 +75,7 @@ public class GraphicalApp implements ActionListener {
         String[] operations = {"+", "-", "*", "/", "^", "(", ")", "=", "."};
 
         frame = new JFrame("Calculator");
+        panel = new JPanel();
         display = new JTextArea();
         historyMenu = new JPopupMenu();
 
@@ -83,8 +86,11 @@ public class GraphicalApp implements ActionListener {
         frame.setSize(500, 500);
         frame.setLayout(null);
         frame.setVisible(true);
+        frame.setBackground(Color.BLUE);
 
         display.setBounds(10, 10, 480, 150);
+        display.setBackground(Color.PINK);
+
         frame.add(display);
 
 
@@ -111,6 +117,8 @@ public class GraphicalApp implements ActionListener {
             numButton[i] = new JButton(String.valueOf(i));
             numButton[i].addActionListener(this);
             numButton[i].setFocusable(false);
+            numButton[i].setBackground(Color.ORANGE);
+            numButton[i].setOpaque(true);
             frame.add(numButton[i]);
         }
 
@@ -118,6 +126,8 @@ public class GraphicalApp implements ActionListener {
             oppButton[i] = new JButton(operations[i]);
             oppButton[i].addActionListener(this);
             oppButton[i].setFocusable(false);
+            oppButton[i].setBackground(Color.GREEN);
+            oppButton[i].setOpaque(true);
             frame.add(oppButton[i]);
         }
 
@@ -131,6 +141,8 @@ public class GraphicalApp implements ActionListener {
         for (int i = 0; i < bottomRow.length; i++) {
             bottomRow[i].addActionListener(this);
             bottomRow[i].setFocusable(false);
+            bottomRow[i].setBackground(Color.magenta);
+            bottomRow[i].setOpaque(true);
             frame.add(bottomRow[i]);
         }
 
@@ -165,6 +177,53 @@ public class GraphicalApp implements ActionListener {
         buttonLoad.setBounds(COL3, ROW5, WIDTH, HEIGHT);
         buttonBackspace.setBounds(COL4, ROW5, WIDTH, HEIGHT);
         buttonClearScreen.setBounds(COL5, ROW5, WIDTH, HEIGHT);
+
+        splashScreen();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: Helper for constructor, renders start up splash screen.
+    @SuppressWarnings("methodlength")
+    private void splashScreen() {
+        panel.setBounds(display.getBounds());
+        panel.setVisible(true);
+
+        ImageIcon splash = new ImageIcon("/Users/pradhyumnan/Documents/UBC/CPSC 210/project_d0m5r/data/splashResized.jpeg");
+        JLabel imageLabel = new JLabel(splash);
+        imageLabel.setBounds(display.getBounds());
+        imageLabel.setVisible(true);
+
+        JLabel textLabel = new JLabel("Loading.");
+        textLabel.setBounds(imageLabel.getX(), imageLabel.getY() + 40, 100, 100);
+        textLabel.setFont(new Font("Sans-Serif", Font.BOLD, 20));
+        textLabel.setVisible(true);
+
+        this.display.setVisible(false);
+
+        frame.add(panel);
+        panel.add(textLabel);
+        panel.add(imageLabel);
+
+        try {
+            Thread.sleep(1000);
+            textLabel.setText("Loading..");
+        } catch (InterruptedException e) {
+            //Should not be caught
+        }
+
+        try {
+            Thread.sleep(1000);
+            textLabel.setText("Loading...");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            //Should not be caught
+        }
+
+        textLabel.setVisible(false);
+        imageLabel.setVisible(false);
+        panel.setVisible(false);
+
+        this.display.setVisible(true);
     }
 
 
