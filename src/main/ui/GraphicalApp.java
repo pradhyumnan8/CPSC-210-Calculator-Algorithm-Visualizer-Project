@@ -46,6 +46,7 @@ public class GraphicalApp implements ActionListener {
 
     private boolean deleteEntryFlag = false;
 
+    @SuppressWarnings("methodlength")
     GraphicalApp() {
         history = new CalculatorHistory();
         evaluator = new ExpressionEvaluator();
@@ -168,6 +169,7 @@ public class GraphicalApp implements ActionListener {
 
 
     @Override
+    @SuppressWarnings("methodlength")
     //MODIFIES: this
     //EFFECTS: whenever a button is pressed, performs the appropriate action (eg. displaying number)
     public void actionPerformed(ActionEvent event) {
