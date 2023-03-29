@@ -16,7 +16,14 @@ import java.util.ArrayList;
 
 public class GraphicalApp implements ActionListener {
     private static final String JSON_STORE = "./data/calculations.json";
-    final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "Unable to run application: file not found";
+    private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "Unable to run application: file not found";
+
+    private static final int WIDTH = 90;
+    private static final int HEIGHT = 55;
+    private static final int PADDING = 7;
+
+    private int[] row;
+    private int[] column;
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -48,7 +55,7 @@ public class GraphicalApp implements ActionListener {
 
     private boolean deleteEntryFlag = false;
 
-    @SuppressWarnings("methodlength")
+    //@SuppressWarnings("methodlength")
     GraphicalApp() {
         history = new CalculatorHistory();
         evaluator = new ExpressionEvaluator();
@@ -56,25 +63,13 @@ public class GraphicalApp implements ActionListener {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
 
-        final int WIDTH = 90;
-        final int HEIGHT = 55;
-        final int PADDING = 7;
-
-        final int ROW1 = 165;
-        final int ROW2 = ROW1 + HEIGHT + PADDING;
-        final int ROW3 = ROW2 + HEIGHT + PADDING;
-        final int ROW4 = ROW3 + HEIGHT + PADDING;
-        final int ROW5 = ROW4 + HEIGHT + PADDING;
-
-        final int COL1 = 10;
-        final int COL2 = COL1 + WIDTH + PADDING;
-        final int COL3 = COL2 + WIDTH + PADDING;
-        final int COL4 = COL3 + WIDTH + PADDING;
-        final int COL5 = COL4 + WIDTH + PADDING;
-
         String[] operations = {"+", "-", "*", "/", "^", "(", ")", "=", "."};
 
-        frame = new JFrame("Calculator");
+        row = new int[5];
+        column = new int[5];
+
+
+        frame = new JFrame("My Calculator");
         panel = new JPanel();
         display = new JTextArea();
         historyMenu = new JPopupMenu();
@@ -106,13 +101,42 @@ public class GraphicalApp implements ActionListener {
         buttonBackspace = new JButton("C");
 
 
-        JButton[] historyFunctions = {buttonViewHistory, buttonClearHistory, buttonDeleteHistoryEntry, buttonMean};
-        JButton[] bottomRow = {buttonHistory, buttonSave, buttonLoad, buttonClearScreen, buttonBackspace};
-
         buttonHistory.setFocusable(false);
         buttonHistory.addActionListener(this);
         frame.add(buttonHistory);
 
+        initializeRows(165, HEIGHT + PADDING);
+        initializeColumns(10, WIDTH + PADDING);
+
+        initializeButtons(operations);
+        layoutButtons();
+        renderSplashScreen();
+    }
+
+    private void initializeButtons(String[] operations) {
+        initializeNumberButtons();
+        initializeOperationButtons(operations);
+        initializeHistoryButtons();
+        initializeBottomRowButtons();
+    }
+
+    private void initializeRows(int first, int difference) {
+        row[0] = first;
+
+        for (int i = 1; i < row.length; i++) {
+            row[i] = row[i - 1] + difference;
+        }
+    }
+
+    private void initializeColumns(int first, int difference) {
+        column[0] = first;
+
+        for (int i = 1; i < column.length; i++) {
+            column[i] = column[i - 1] + difference;
+        }
+    }
+
+        private void initializeNumberButtons() {
         for (int i = 0; i <= 9; i++) {
             numButton[i] = new JButton(String.valueOf(i));
             numButton[i].addActionListener(this);
@@ -121,15 +145,21 @@ public class GraphicalApp implements ActionListener {
             numButton[i].setOpaque(true);
             frame.add(numButton[i]);
         }
+    }
 
+    private void initializeOperationButtons(String[] operations) {
         for (int i = 0; i < operations.length; i++) {
             oppButton[i] = new JButton(operations[i]);
             oppButton[i].addActionListener(this);
             oppButton[i].setFocusable(false);
-            oppButton[i].setBackground(Color.GREEN);
+            oppButton[i].setBackground(Color.ORANGE);
             oppButton[i].setOpaque(true);
             frame.add(oppButton[i]);
         }
+    }
+
+    private void initializeHistoryButtons() {
+        JButton[] historyFunctions = {buttonViewHistory, buttonClearHistory, buttonDeleteHistoryEntry, buttonMean};
 
         for (int i = 0; i < historyFunctions.length; i++) {
             historyFunctions[i].addActionListener(this);
@@ -137,54 +167,73 @@ public class GraphicalApp implements ActionListener {
 
             historyMenu.add(historyFunctions[i]);
         }
+    }
+
+    private void initializeBottomRowButtons() {
+        JButton[] bottomRow = {buttonHistory, buttonSave, buttonLoad, buttonClearScreen, buttonBackspace};
 
         for (int i = 0; i < bottomRow.length; i++) {
             bottomRow[i].addActionListener(this);
             bottomRow[i].setFocusable(false);
-            bottomRow[i].setBackground(Color.magenta);
+            bottomRow[i].setBackground(Color.ORANGE);
             bottomRow[i].setOpaque(true);
             frame.add(bottomRow[i]);
         }
-
-        //LAYOUT OF FIRST NUM ROW
-        numButton[1].setBounds(COL1, ROW1, WIDTH, HEIGHT);
-        numButton[2].setBounds(COL2, ROW1, WIDTH, HEIGHT);
-        numButton[3].setBounds(COL3, ROW1, WIDTH, HEIGHT);
-        oppButton[0].setBounds(COL4, ROW1, WIDTH, HEIGHT);
-        oppButton[1].setBounds(COL5, ROW1, WIDTH, HEIGHT);
-
-        //LAYOUT OF SECOND NUM ROW
-        numButton[4].setBounds(COL1, ROW2, WIDTH, HEIGHT);
-        numButton[5].setBounds(COL2, ROW2, WIDTH, HEIGHT);
-        numButton[6].setBounds(COL3, ROW2, WIDTH, HEIGHT);
-        oppButton[2].setBounds(COL4, ROW2, WIDTH, HEIGHT);
-        oppButton[3].setBounds(COL5, ROW2, WIDTH, HEIGHT);
-
-        //LAYOUT OF THIRD NUM ROW
-        numButton[7].setBounds(COL1, ROW3, WIDTH, HEIGHT);
-        numButton[8].setBounds(COL2, ROW3, WIDTH, HEIGHT);
-        numButton[9].setBounds(COL3, ROW3, WIDTH, HEIGHT);
-        oppButton[5].setBounds(COL4, ROW3, WIDTH, HEIGHT);
-        oppButton[6].setBounds(COL5, ROW3, WIDTH, HEIGHT);
-
-        numButton[0].setBounds(COL1, ROW4, 2 * WIDTH + PADDING, HEIGHT);
-        oppButton[7].setBounds(COL3, ROW4, WIDTH, HEIGHT);
-        oppButton[8].setBounds(COL4, ROW4, WIDTH, HEIGHT);
-        oppButton[4].setBounds(COL5, ROW4, WIDTH, HEIGHT);
-
-        buttonHistory.setBounds(COL1, ROW5, WIDTH, HEIGHT);
-        buttonSave.setBounds(COL2, ROW5, WIDTH, HEIGHT);
-        buttonLoad.setBounds(COL3, ROW5, WIDTH, HEIGHT);
-        buttonBackspace.setBounds(COL4, ROW5, WIDTH, HEIGHT);
-        buttonClearScreen.setBounds(COL5, ROW5, WIDTH, HEIGHT);
-
-        splashScreen();
     }
+
+    private void layoutButtons() {
+        layoutRow1(row[0], column);
+        layoutRow2(row[1], column);
+        layoutRow3(row[2], column);
+        layoutRow4(row[3], column);
+        layoutRow5(row[4], column);
+    }
+
+    private void layoutRow1(int row, int[] col) {
+        numButton[1].setBounds(col[0], row, WIDTH, HEIGHT);
+        numButton[2].setBounds(col[1], row, WIDTH, HEIGHT);
+        numButton[3].setBounds(col[2], row, WIDTH, HEIGHT);
+        oppButton[0].setBounds(col[3], row, WIDTH, HEIGHT);
+        oppButton[1].setBounds(col[4], row, WIDTH, HEIGHT);
+    }
+
+    private void layoutRow2(int row, int[] col) {
+        numButton[4].setBounds(col[0], row, WIDTH, HEIGHT);
+        numButton[5].setBounds(col[1], row, WIDTH, HEIGHT);
+        numButton[6].setBounds(col[2], row, WIDTH, HEIGHT);
+        oppButton[2].setBounds(col[3], row, WIDTH, HEIGHT);
+        oppButton[3].setBounds(col[4], row, WIDTH, HEIGHT);
+    }
+
+    private void layoutRow3(int row, int[] col) {
+        numButton[7].setBounds(col[0], row, WIDTH, HEIGHT);
+        numButton[8].setBounds(col[1], row, WIDTH, HEIGHT);
+        numButton[9].setBounds(col[2], row, WIDTH, HEIGHT);
+        oppButton[5].setBounds(col[3], row, WIDTH, HEIGHT);
+        oppButton[6].setBounds(col[4], row, WIDTH, HEIGHT);
+    }
+
+    private void layoutRow4(int row, int[] col) {
+        numButton[0].setBounds(col[0], row, 2 * WIDTH + PADDING, HEIGHT);
+        oppButton[7].setBounds(col[2], row, WIDTH, HEIGHT);
+        oppButton[8].setBounds(col[3], row, WIDTH, HEIGHT);
+        oppButton[4].setBounds(col[4], row, WIDTH, HEIGHT);
+    }
+
+    private void layoutRow5(int row, int[] col) {
+        buttonHistory.setBounds(col[0], row, WIDTH, HEIGHT);
+        buttonSave.setBounds(col[1], row, WIDTH, HEIGHT);
+        buttonLoad.setBounds(col[2], row, WIDTH, HEIGHT);
+        buttonBackspace.setBounds(col[3], row, WIDTH, HEIGHT);
+        buttonClearScreen.setBounds(col[4], row, WIDTH, HEIGHT);
+    }
+
+
 
     //MODIFIES: this
     //EFFECTS: Helper for constructor, renders start up splash screen.
     @SuppressWarnings("methodlength")
-    private void splashScreen() {
+    private void renderSplashScreen() {
         panel.setBounds(display.getBounds());
         panel.setVisible(true);
 
@@ -325,7 +374,7 @@ public class GraphicalApp implements ActionListener {
             return " is Empty";
         } else {
             for (int i = 0; i < history.getCalculations().size(); i++) {
-                historyAsString += ( "\n" + (i + 1) + ") " + history.getCalculations().get(i).getExpression() + "  =  "
+                historyAsString += ("\n" + (i + 1) + ") " + history.getCalculations().get(i).getExpression() + "  =  "
                                    + history.getCalculations().get(i).getResult());
             }
         }

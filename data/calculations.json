@@ -1,10 +1,10 @@
 {"calculations": [
     {
-        "result": 161,
-        "expression": "125+36"
+        "result": 20559.99,
+        "expression": "36+569*58-(56^2)*(5-1)+65.99"
     },
     {
-        "result": 805,
-        "expression": "161.0*5"
+        "result": 87.069,
+        "expression": "92.069-5"
     }
 ]}
