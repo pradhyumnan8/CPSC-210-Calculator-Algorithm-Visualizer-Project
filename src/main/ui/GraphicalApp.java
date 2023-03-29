@@ -36,11 +36,8 @@ public class GraphicalApp implements ActionListener {
     private JPopupMenu historyMenu;
     private JPanel panel;
 
-
-
     private JButton[] numButton;
     private JButton[] oppButton;
-
 
     private JButton buttonViewHistory;
     private JButton buttonClearHistory;
@@ -55,7 +52,9 @@ public class GraphicalApp implements ActionListener {
 
     private boolean deleteEntryFlag = false;
 
-    //@SuppressWarnings("methodlength")
+
+    //MODIFIES: this
+    //EFFECTS: constructs a new instance of GraphicalApp
     GraphicalApp() {
         history = new CalculatorHistory();
         evaluator = new ExpressionEvaluator();
@@ -63,64 +62,54 @@ public class GraphicalApp implements ActionListener {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
 
-        String[] operations = {"+", "-", "*", "/", "^", "(", ")", "=", "."};
+        initializeRows(165, HEIGHT + PADDING);
+        initializeColumns(10, WIDTH + PADDING);
 
-        row = new int[5];
-        column = new int[5];
+        initializeBasicElements();
+        initializeButtons();
+        layoutButtons();
+        renderSplashScreen();
+    }
 
 
+    //MODIFIES: this
+    //EFFECTS: instantiates and sets up the JFrame, JPanel, JTextArea, and JPopupArea. Helper for constructor
+    private void initializeBasicElements() {
         frame = new JFrame("My Calculator");
         panel = new JPanel();
         display = new JTextArea();
         historyMenu = new JPopupMenu();
 
-        numButton = new JButton[10];
-        oppButton = new JButton[operations.length];
+        setupFrame();
+        setupScrollPane();
+        setupDisplay();
+    }
 
+    //MODIFIES: this
+    //EFFECTS: sets up the display. Helper for initializeBasicElements()
+    private void setupDisplay() {
+        display.setBounds(10, 10, 480, 150);
+        display.setBackground(Color.PINK);
+        frame.add(display);
+    }
+
+    private void setupFrame() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setBackground(Color.BLUE);
-
-        display.setBounds(10, 10, 480, 150);
-        display.setBackground(Color.PINK);
-
-        frame.add(display);
-
-
-        buttonViewHistory = new JButton("View");
-        buttonClearHistory = new JButton("Clear");
-        buttonDeleteHistoryEntry = new JButton("Delete");
-        buttonMean = new JButton("Mean");
-
-        buttonHistory = new JButton("History");
-        buttonSave = new JButton("Save");
-        buttonLoad = new JButton("Load");
-        buttonClearScreen = new JButton("AC");
-        buttonBackspace = new JButton("C");
-
-
-        buttonHistory.setFocusable(false);
-        buttonHistory.addActionListener(this);
-        frame.add(buttonHistory);
-
-        initializeRows(165, HEIGHT + PADDING);
-        initializeColumns(10, WIDTH + PADDING);
-
-        initializeButtons(operations);
-        layoutButtons();
-        renderSplashScreen();
     }
 
-    private void initializeButtons(String[] operations) {
-        initializeNumberButtons();
-        initializeOperationButtons(operations);
-        initializeHistoryButtons();
-        initializeBottomRowButtons();
+    private void setupScrollPane() {
+        JScrollPane scrollPane = new JScrollPane(display);
+        scrollPane.setBounds(display.getBounds());
+        frame.getContentPane().add(scrollPane);
     }
 
     private void initializeRows(int first, int difference) {
+        row = new int[5];
+
         row[0] = first;
 
         for (int i = 1; i < row.length; i++) {
@@ -129,6 +118,8 @@ public class GraphicalApp implements ActionListener {
     }
 
     private void initializeColumns(int first, int difference) {
+        column = new int[5];
+
         column[0] = first;
 
         for (int i = 1; i < column.length; i++) {
@@ -136,7 +127,28 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
-        private void initializeNumberButtons() {
+    private void initializeButtons() {
+        String[] operations = {"+", "-", "*", "/", "^", "(", ")", "=", "."};
+        numButton = new JButton[10];
+        oppButton = new JButton[operations.length];
+
+        buttonViewHistory = new JButton("View");
+        buttonClearHistory = new JButton("Clear");
+        buttonDeleteHistoryEntry = new JButton("Delete");
+        buttonMean = new JButton("Mean");
+
+        buttonSave = new JButton("Save");
+        buttonLoad = new JButton("Load");
+        buttonClearScreen = new JButton("AC");
+        buttonBackspace = new JButton("C");
+
+        initializeNumberButtons();
+        initializeOperationButtons(operations);
+        initializeHistoryButtons();
+        initializeBottomRowButtons();
+    }
+
+    private void initializeNumberButtons() {
         for (int i = 0; i <= 9; i++) {
             numButton[i] = new JButton(String.valueOf(i));
             numButton[i].addActionListener(this);
@@ -160,6 +172,11 @@ public class GraphicalApp implements ActionListener {
 
     private void initializeHistoryButtons() {
         JButton[] historyFunctions = {buttonViewHistory, buttonClearHistory, buttonDeleteHistoryEntry, buttonMean};
+
+        buttonHistory = new JButton("History");
+        buttonHistory.setFocusable(false);
+        buttonHistory.addActionListener(this);
+        frame.add(buttonHistory);
 
         for (int i = 0; i < historyFunctions.length; i++) {
             historyFunctions[i].addActionListener(this);

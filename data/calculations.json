@@ -1,10 +1,14 @@
 {"calculations": [
     {
-        "result": 20559.99,
-        "expression": "36+569*58-(56^2)*(5-1)+65.99"
+        "result": 3294,
+        "expression": "3225+69"
     },
     {
-        "result": 87.069,
-        "expression": "92.069-5"
+        "result": 3225,
+        "expression": "3294.0-69"
+    },
+    {
+        "result": 2.2526625E7,
+        "expression": "3225.0*6985"
     }
 ]}
