@@ -93,6 +93,8 @@ public class GraphicalApp implements ActionListener {
         frame.add(display);
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets up the frame. Helper for initializeBasicElements()
     private void setupFrame() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
@@ -101,12 +103,17 @@ public class GraphicalApp implements ActionListener {
         frame.setBackground(Color.BLUE);
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets up the scroll pane. Helper for initializeBasicElements()
     private void setupScrollPane() {
         JScrollPane scrollPane = new JScrollPane(display);
         scrollPane.setBounds(display.getBounds());
         frame.getContentPane().add(scrollPane);
     }
 
+    //REQUIRES: instantiated row[] array
+    //MODIFIES: this
+    //EFFECTS: initializes the row array. helper for constructor.
     private void initializeRows(int first, int difference) {
         row = new int[5];
 
@@ -117,6 +124,9 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+    //REQUIRES: instantiated col[] array
+    //MODIFIES: this
+    //EFFECTS: initializes the column array. helper for constructor.
     private void initializeColumns(int first, int difference) {
         column = new int[5];
 
@@ -127,6 +137,8 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: instantiates and sets up all the buttons. Helper for constructor.
     private void initializeButtons() {
         String[] operations = {"+", "-", "*", "/", "^", "(", ")", "=", "."};
         numButton = new JButton[10];
@@ -142,12 +154,17 @@ public class GraphicalApp implements ActionListener {
         buttonClearScreen = new JButton("AC");
         buttonBackspace = new JButton("C");
 
+        buttonHistory = new JButton("History");
+
         initializeNumberButtons();
         initializeOperationButtons(operations);
         initializeHistoryButtons();
         initializeBottomRowButtons();
     }
 
+    //REQUIRES: instantiated numButton[] array
+    //MODIFIES: this
+    //EFFECTS: sets up the number buttons. Helper for initializeButtons()
     private void initializeNumberButtons() {
         for (int i = 0; i <= 9; i++) {
             numButton[i] = new JButton(String.valueOf(i));
@@ -159,6 +176,9 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+    //REQUIRES: instantiated oppButton[] array
+    //MODIFIES: this
+    //EFFECTS: sets up the operations buttons. Helper for initializeButtons()
     private void initializeOperationButtons(String[] operations) {
         for (int i = 0; i < operations.length; i++) {
             oppButton[i] = new JButton(operations[i]);
@@ -170,10 +190,12 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+    //REQUIRES: instantiated History Buttons
+    //MODIFIES: this
+    //EFFECTS: sets up the History buttons. Helper for initializeButtons()
     private void initializeHistoryButtons() {
         JButton[] historyFunctions = {buttonViewHistory, buttonClearHistory, buttonDeleteHistoryEntry, buttonMean};
 
-        buttonHistory = new JButton("History");
         buttonHistory.setFocusable(false);
         buttonHistory.addActionListener(this);
         frame.add(buttonHistory);
@@ -186,6 +208,9 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+    //REQUIRES: instantiated Bottom Row Buttons
+    //MODIFIES: this
+    //EFFECTS: sets up the Bottom Row buttons. Helper for initializeButtons()
     private void initializeBottomRowButtons() {
         JButton[] bottomRow = {buttonHistory, buttonSave, buttonLoad, buttonClearScreen, buttonBackspace};
 
@@ -198,6 +223,8 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: lays all the buttons in a nice grid.
     private void layoutButtons() {
         layoutRow1(row[0], column);
         layoutRow2(row[1], column);
@@ -206,6 +233,9 @@ public class GraphicalApp implements ActionListener {
         layoutRow5(row[4], column);
     }
 
+    //REQUIRES: instantiated buttons
+    //MODIFIES: this
+    //EFFECTS: lays out the first row
     private void layoutRow1(int row, int[] col) {
         numButton[1].setBounds(col[0], row, WIDTH, HEIGHT);
         numButton[2].setBounds(col[1], row, WIDTH, HEIGHT);
@@ -214,6 +244,9 @@ public class GraphicalApp implements ActionListener {
         oppButton[1].setBounds(col[4], row, WIDTH, HEIGHT);
     }
 
+    //REQUIRES: instantiated buttons
+    //MODIFIES: this
+    //EFFECTS: lays out the second row
     private void layoutRow2(int row, int[] col) {
         numButton[4].setBounds(col[0], row, WIDTH, HEIGHT);
         numButton[5].setBounds(col[1], row, WIDTH, HEIGHT);
@@ -222,6 +255,9 @@ public class GraphicalApp implements ActionListener {
         oppButton[3].setBounds(col[4], row, WIDTH, HEIGHT);
     }
 
+    //REQUIRES: instantiated buttons
+    //MODIFIES: this
+    //EFFECTS: lays out the third row
     private void layoutRow3(int row, int[] col) {
         numButton[7].setBounds(col[0], row, WIDTH, HEIGHT);
         numButton[8].setBounds(col[1], row, WIDTH, HEIGHT);
@@ -230,6 +266,9 @@ public class GraphicalApp implements ActionListener {
         oppButton[6].setBounds(col[4], row, WIDTH, HEIGHT);
     }
 
+    //REQUIRES: instantiated buttons
+    //MODIFIES: this
+    //EFFECTS: lays out the fourth row
     private void layoutRow4(int row, int[] col) {
         numButton[0].setBounds(col[0], row, 2 * WIDTH + PADDING, HEIGHT);
         oppButton[7].setBounds(col[2], row, WIDTH, HEIGHT);
@@ -237,6 +276,9 @@ public class GraphicalApp implements ActionListener {
         oppButton[4].setBounds(col[4], row, WIDTH, HEIGHT);
     }
 
+    //REQUIRES: instantiated buttons
+    //MODIFIES: this
+    //EFFECTS: lays out the fifth row
     private void layoutRow5(int row, int[] col) {
         buttonHistory.setBounds(col[0], row, WIDTH, HEIGHT);
         buttonSave.setBounds(col[1], row, WIDTH, HEIGHT);
@@ -249,12 +291,11 @@ public class GraphicalApp implements ActionListener {
 
     //MODIFIES: this
     //EFFECTS: Helper for constructor, renders start up splash screen.
-    @SuppressWarnings("methodlength")
     private void renderSplashScreen() {
         panel.setBounds(display.getBounds());
         panel.setVisible(true);
 
-        ImageIcon splash = new ImageIcon("/Users/pradhyumnan/Documents/UBC/CPSC 210/project_d0m5r/data/splashResized.jpeg");
+        ImageIcon splash = new ImageIcon("data/splashResized.jpeg");
         JLabel imageLabel = new JLabel(splash);
         imageLabel.setBounds(display.getBounds());
         imageLabel.setVisible(true);
@@ -270,6 +311,18 @@ public class GraphicalApp implements ActionListener {
         panel.add(textLabel);
         panel.add(imageLabel);
 
+        renderLoadingTimeout(textLabel);
+
+        textLabel.setVisible(false);
+        imageLabel.setVisible(false);
+        panel.setVisible(false);
+
+        this.display.setVisible(true);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: Renders Loading.. and Loading... Helper for renderSplashScreen()
+    private void renderLoadingTimeout(JLabel textLabel) {
         try {
             Thread.sleep(1000);
             textLabel.setText("Loading..");
@@ -284,81 +337,20 @@ public class GraphicalApp implements ActionListener {
         } catch (InterruptedException e) {
             //Should not be caught
         }
-
-        textLabel.setVisible(false);
-        imageLabel.setVisible(false);
-        panel.setVisible(false);
-
-        this.display.setVisible(true);
     }
 
 
     @Override
-    @SuppressWarnings("methodlength")
     //MODIFIES: this
     //EFFECTS: whenever a button is pressed, performs the appropriate action (eg. displaying number)
     public void actionPerformed(ActionEvent event) {
 
-        for (int i = 0; i <= 9; i++) {
-            if (event.getSource() == numButton[i]) {
-                display.append(numButton[i].getText());
+        processNumberInput(event);
 
-                if (deleteEntryFlag) {
-                    history.delete(numButton[i].getText().charAt(0) - '0');
-                    display.setText("Chosen entry has been deleted");
-                    deleteEntryFlag = false;
-                }
-            }
-        }
+        processOperationInput(event);
 
-        for (int i = 0; i < oppButton.length; i++) {
-            if (event.getSource() == oppButton[i]) {
-                if (oppButton[i].getText().equals("=")) {
-                    try {
-                        display.setText(String.valueOf(evaluator.calculate(display.getText())));
-                        this.history = evaluator.getHistory();
-                        break;
-                    } catch (FileNotFoundException exception) {
-                        display.setText(FILE_NOT_FOUND_EXCEPTION_MESSAGE);
-                    }
-                }
+        processHistoryInput(event);
 
-                display.append(oppButton[i].getText());
-            }
-        }
-
-        if (event.getSource() == buttonHistory) {
-            historyMenu.setLocation(buttonHistory.getX(), buttonHistory.getY());
-            historyMenu.setVisible(true);
-        }
-
-        if (event.getSource() == buttonViewHistory) {
-            display.setText("History");
-            display.append(historyToString(this.history));
-            historyMenu.setVisible(false);
-        }
-
-        if (event.getSource() == buttonClearHistory) {
-            display.setText("History Cleared");
-            this.evaluator = new ExpressionEvaluator();
-            this.history = evaluator.getHistory();
-            historyMenu.setVisible(false);
-        }
-
-        if (event.getSource() == buttonDeleteHistoryEntry) {
-            historyMenu.setVisible(false);
-
-            display.setText("History");
-            display.append(historyToString(this.history));
-
-            display.append("\n\n Enter the line number of the entry you want to delete\n");
-            deleteEntryFlag = true;
-        }
-
-        if (event.getSource() == buttonMean) {
-            display.setText("The Mean of your Calculations is:  " + evaluator.getHistory().mean());
-            historyMenu.setVisible(false);
-        }
 
         if (event.getSource() == buttonSave) {
             this.save();
@@ -378,6 +370,106 @@ public class GraphicalApp implements ActionListener {
 
         if (event.getSource() == buttonClearScreen) {
             display.setText("");
+        }
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: checks if a number button was pressed and completes the appropriate action. Helper for actionPerformed()
+    private void processNumberInput(ActionEvent event) {
+        for (int i = 0; i <= 9; i++) {
+            if (event.getSource() == numButton[i]) {
+                display.append(numButton[i].getText());
+
+                if (deleteEntryFlag) {
+                    history.delete(numButton[i].getText().charAt(0) - '0');
+                    display.setText("Chosen entry has been deleted");
+                    deleteEntryFlag = false;
+                }
+            }
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: if an operation button was pressed, completes the appropriate action. Helper for actionPerformed()
+    private void processOperationInput(ActionEvent event) {
+        for (int i = 0; i < oppButton.length; i++) {
+            if (event.getSource() == oppButton[i]) {
+                if (oppButton[i].getText().equals("=")) {
+                    try {
+                        display.setText(String.valueOf(evaluator.calculate(display.getText())));
+                        this.history = evaluator.getHistory();
+                        break;
+                    } catch (FileNotFoundException exception) {
+                        display.setText(FILE_NOT_FOUND_EXCEPTION_MESSAGE);
+                    }
+                }
+
+                display.append(oppButton[i].getText());
+            }
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: checks if a History button was pressed and completes the appropriate action. Helper for actionPerformed()
+    private void processHistoryInput(ActionEvent event) {
+        if (event.getSource() == buttonHistory) {
+            historyMenu.setLocation(buttonHistory.getX(), buttonHistory.getY());
+            historyMenu.setVisible(true);
+        }
+
+        processViewHistory(event);
+
+        processClearHistory(event);
+
+        processDeleteHistory(event);
+
+        processMean(event);
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: checks if view button was pressed and displays history on the display. helper to processHistoryInput()
+    private void processViewHistory(ActionEvent event) {
+        if (event.getSource() == buttonViewHistory) {
+            display.setText("History");
+            display.append(historyToString(this.history));
+            historyMenu.setVisible(false);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: checks if Clear history button was pressed and clears the history. helper to processHistoryInput()
+    private void processClearHistory(ActionEvent event) {
+        if (event.getSource() == buttonClearHistory) {
+            display.setText("History Cleared");
+            this.evaluator = new ExpressionEvaluator();
+            this.history = evaluator.getHistory();
+            historyMenu.setVisible(false);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: checks if Delete History button was pressed and deletes entry corresponding to the specified line number
+    //         Helper to processHistoryInput()
+    private void processDeleteHistory(ActionEvent event) {
+        if (event.getSource() == buttonDeleteHistoryEntry) {
+            historyMenu.setVisible(false);
+
+            display.setText("History");
+            display.append(historyToString(this.history));
+
+            display.append("\n\n Enter the line number of the entry you want to delete\n");
+            deleteEntryFlag = true;
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: checks if Mean button was pressed and displays Mean on the display. helper to processHistoryInput()
+    private void processMean(ActionEvent event) {
+        if (event.getSource() == buttonMean) {
+            display.setText("The Mean of your Calculations is:  " + evaluator.getHistory().mean());
+            historyMenu.setVisible(false);
         }
     }
 
