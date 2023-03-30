@@ -48,7 +48,7 @@ now (eg asking what is the result of "2" or "-2").
 
 
 
-## Citations:
+## Attributions:
 - JSON saving and loading file implementations were heavily inspired by the example "JsonSerializationDemo" program.
 - Splash Screen Picture link: https://www.shutterstock.com/image-illustration/welcome-screen-illustration-260nw-1639480804.jpg
 - Video used to learn Java Swing: https://www.youtube.com/watch?v=dfhmTyRTCSQ&t=1367s
