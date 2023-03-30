@@ -351,26 +351,9 @@ public class GraphicalApp implements ActionListener {
 
         processHistoryInput(event);
 
+        processPersistenceInputs(event);
 
-        if (event.getSource() == buttonSave) {
-            this.save();
-        }
-
-        if (event.getSource() == buttonLoad) {
-            this.load();
-        }
-
-        if (event.getSource() == buttonBackspace) {
-            if (display.getText() == "") {
-                display.setText("");
-            } else {
-                display.setText(display.getText().substring(0, display.getText().length() - 1));
-            }
-        }
-
-        if (event.getSource() == buttonClearScreen) {
-            display.setText("");
-        }
+        processNavigationInput(event);
     }
 
 
@@ -473,6 +456,37 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: saves or loads the application. Helper to actionPerformed()
+    private void processPersistenceInputs(ActionEvent event) {
+        if (event.getSource() == buttonSave) {
+            this.save();
+        }
+
+        if (event.getSource() == buttonLoad) {
+            this.load();
+        }
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: clears one character or all of the screen depending on input. Helper to actionPerformed()
+    private void processNavigationInput(ActionEvent event) {
+        if (event.getSource() == buttonBackspace) {
+            if (display.getText() == "") {
+                display.setText("");
+            } else {
+                display.setText(display.getText().substring(0, display.getText().length() - 1));
+            }
+        }
+
+        if (event.getSource() == buttonClearScreen) {
+            display.setText("");
+        }
+    }
+
+
+
 
     //EFFECTS: returns the history List inside passed history parameter as a String ready for printing.
     //         Helper to actionPerformed().
@@ -490,6 +504,7 @@ public class GraphicalApp implements ActionListener {
 
         return historyAsString;
     }
+
 
     //EFFECTS: saves the application (history) to file
     private void save() {

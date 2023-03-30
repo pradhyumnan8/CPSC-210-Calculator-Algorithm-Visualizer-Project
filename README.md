@@ -20,12 +20,12 @@ the project but progress will be evident in the later phases of the project.
 now (eg asking what is the result of "2" or "-2").
 - A history function that will allow you to view and select previous calculations 
 - Statistical functions (mean, median etc.) that can be run on your history.
-- A toggleable stack visualizer that shows data flow through the stack at each point.  
   
 
-Possible list of extra features:
+**Possible list of extra features:**
 - algebraic solver
 - bitwise solver
+- A toggleable stack visualizer that shows data flow through the stack at each point.
 - tree-based algorithm visualization. 
 
 ## User Stories:
@@ -38,5 +38,19 @@ Possible list of extra features:
 - As a user, I want to be able to save and load the state of the application.
 
 
-CITATIONS:
-- JSON saving and loading file implementations were heavily inspired by the example "JsonSerializationDemo" program. 
+## Instructions to use GUI:
+1. Click Play
+2. Wait for start up screen to finish loading. 
+3. Use the calculator as you would any other calculator 
+4. Press the history button for history actions such as view, delete, clear, calculating mean etc. 
+   1. Press one of the buttons on the pop-up to complete that action, following prompts on screen.
+5. You can press the "save" or "load" buttons anytime to save/load your history. 
+
+
+
+## Citations:
+- JSON saving and loading file implementations were heavily inspired by the example "JsonSerializationDemo" program.
+- Splash Screen Picture link: https://www.shutterstock.com/image-illustration/welcome-screen-illustration-260nw-1639480804.jpg
+- Video used to learn Java Swing: https://www.youtube.com/watch?v=dfhmTyRTCSQ&t=1367s
+- Discussion used to learn how to scroll a JTextArea: https://stackoverflow.com/questions/8849063/adding-a-scrollable-jtextarea-java
+- Discussion used to learn how to introduce a delay: https://stackoverflow.com/questions/24104313/how-do-i-make-a-delay-in-java
