@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//Graphical User Interface for the calculator.
 public class GraphicalApp implements ActionListener {
     private static final String JSON_STORE = "./data/calculations.json";
     private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "Unable to run application: file not found";
@@ -373,22 +374,29 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
+
     //MODIFIES: this
     //EFFECTS: if an operation button was pressed, completes the appropriate action. Helper for actionPerformed()
     private void processOperationInput(ActionEvent event) {
         for (int i = 0; i < oppButton.length; i++) {
             if (event.getSource() == oppButton[i]) {
                 if (oppButton[i].getText().equals("=")) {
-                    try {
-                        display.setText(String.valueOf(evaluator.calculate(display.getText())));
-                        this.history = evaluator.getHistory();
-                        break;
-                    } catch (FileNotFoundException exception) {
-                        display.setText(FILE_NOT_FOUND_EXCEPTION_MESSAGE);
+                    if (!evaluator.isValid(display.getText())) {
+                        display.setText("Invalid Expression, Please Try again");
+                    } else {
+                        try {
+                            display.setText(String.valueOf(evaluator.calculate(display.getText())));
+                            this.history = evaluator.getHistory();
+                            break;
+                        } catch (FileNotFoundException exception) {
+                            display.setText(FILE_NOT_FOUND_EXCEPTION_MESSAGE);
+                        }
                     }
                 }
 
-                display.append(oppButton[i].getText());
+                if (oppButton[i].getText() != "=") {
+                    display.append(oppButton[i].getText());
+                }
             }
         }
     }

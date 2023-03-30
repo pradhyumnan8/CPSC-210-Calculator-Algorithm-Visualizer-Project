@@ -44,7 +44,8 @@ now (eg asking what is the result of "2" or "-2").
 3. Use the calculator as you would any other calculator 
 4. Press the history button for history actions such as view, delete, clear, calculating mean etc. 
    1. Press one of the buttons on the pop-up to complete that action, following prompts on screen.
-5. You can press the "save" or "load" buttons anytime to save/load your history. 
+5. You can press the "save" or "load" buttons anytime to save/load your history.
+6. NOTE: Must press AC after any message (eg. "invalid expression", "history cleared" etc.)
 
 
 
