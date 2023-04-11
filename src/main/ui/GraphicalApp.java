@@ -103,8 +103,7 @@ public class GraphicalApp implements ActionListener, WindowListener {
     //MODIFIES: this
     //EFFECTS: sets up the frame. Helper for initializeBasicElements()
     private void setupFrame() {
-        //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addWindowListener(this);
         frame.setSize(500, 500);
         frame.setLayout(null);
