@@ -27,12 +27,19 @@ public class EventTest {
 	
 	@Test
 	public void testEvent() {
+        int hash = 0;
+
 		assertEquals("1+1", e.getDescription());
         assertEquals(false, e.getDescription().equals("testing"));
         assertEquals(false, e.getDescription().equals(null));
+		assertEquals(d.toString(), e.getDate().toString());
+
         assertEquals(false, e.equals("hello"));
         assertEquals(false, e.equals(null));
-		assertEquals(d.toString(), e.getDate().toString());
+
+        hash = e.hashCode();
+
+        assertEquals(hash, e.hashCode());
 	}
 
 	@Test
