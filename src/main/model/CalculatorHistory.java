@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 //Stores the history of calculations and has statistical methods to act upon them.
 public class CalculatorHistory implements Writable {
     private ArrayList<Calculation> calculations = new ArrayList<>();
+    private static final String JSON_STORE = "./data/calculations.json";
 
     public ArrayList<Calculation> getCalculations() {
         return calculations;
@@ -18,6 +19,7 @@ public class CalculatorHistory implements Writable {
 
     public void setCalculations(ArrayList<Calculation> calculations) {
         this.calculations = calculations;
+      //  EventLog.getInstance().logEvent(new Event("History was loaded from " + JSON_STORE));
     }
 
     public void addCalculation(Calculation newCalculation) {
