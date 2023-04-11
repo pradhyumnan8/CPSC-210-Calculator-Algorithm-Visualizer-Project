@@ -2,6 +2,8 @@ package ui;
 
 import model.Calculation;
 import model.CalculatorHistory;
+import model.Event;
+import model.EventLog;
 import model.ExpressionEvaluator;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -10,12 +12,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 //Graphical User Interface for the calculator.
-public class GraphicalApp implements ActionListener {
+public class GraphicalApp implements ActionListener, WindowListener {
     private static final String JSON_STORE = "./data/calculations.json";
     private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "Unable to run application: file not found";
 
@@ -97,11 +101,19 @@ public class GraphicalApp implements ActionListener {
     //MODIFIES: this
     //EFFECTS: sets up the frame. Helper for initializeBasicElements()
     private void setupFrame() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.addWindowListener(this);
         frame.setSize(500, 500);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setBackground(Color.BLUE);
+    }
+
+    public void printLog(EventLog log) {
+        for (Event event : log) {
+            System.out.println(event.toString() + "\n");
+        }
     }
 
     //MODIFIES: this
@@ -340,7 +352,6 @@ public class GraphicalApp implements ActionListener {
         }
     }
 
-
     @Override
     //MODIFIES: this
     //EFFECTS: whenever a button is pressed, performs the appropriate action (eg. displaying number)
@@ -494,8 +505,6 @@ public class GraphicalApp implements ActionListener {
     }
 
 
-
-
     //EFFECTS: returns the history List inside passed history parameter as a String ready for printing.
     //         Helper to actionPerformed().
     private String historyToString(CalculatorHistory history) {
@@ -538,5 +547,42 @@ public class GraphicalApp implements ActionListener {
         } catch (IOException e) {
             display.setText("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        //nothing
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        //nothing
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        //nothing
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        //nothing
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        //nothing
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        //nothing
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        printLog(EventLog.getInstance());
+        System.exit(0);
     }
 }

@@ -249,4 +249,10 @@ public class TerminalApp {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
+
+    public void printLog(EventLog log) {
+        for (Event event : log) {
+            System.out.println(event.toString() + "\n");
+        }
+    }
 }

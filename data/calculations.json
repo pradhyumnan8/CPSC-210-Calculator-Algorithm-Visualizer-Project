@@ -1,14 +1,18 @@
 {"calculations": [
     {
-        "result": 3294,
-        "expression": "3225+69"
+        "result": 3325,
+        "expression": "3256+69"
     },
     {
-        "result": 3225,
-        "expression": "3294.0-69"
+        "result": 19950,
+        "expression": "3325.0*6"
     },
     {
-        "result": 2.2526625E7,
-        "expression": "3225.0*6985"
+        "result": 3324,
+        "expression": "19944.0/6"
+    },
+    {
+        "result": 1.1048976E7,
+        "expression": "3324.0^2"
     }
 ]}
