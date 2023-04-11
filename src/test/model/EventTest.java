@@ -30,6 +30,8 @@ public class EventTest {
 		assertEquals("1+1", e.getDescription());
         assertEquals(false, e.getDescription().equals("testing"));
         assertEquals(false, e.getDescription().equals(null));
+        assertEquals(false, e.equals("hello"));
+        assertEquals(false, e.equals("null"));
 		assertEquals(d.toString(), e.getDate().toString());
 	}
 
