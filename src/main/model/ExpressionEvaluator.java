@@ -244,7 +244,7 @@ public class ExpressionEvaluator {
 
         history.addCalculation(thisCalculation);
 
-        EventLog.getInstance().logEvent(new Event("The calculation " + thisCalculation.getExpression() + " = " + thisCalculation.getResult() + " has been added to history."));
+        //EventLog.getInstance().logEvent(new Event("The calculation " + thisCalculation.getExpression() + " = " + thisCalculation.getResult() + " has been added to history."));
 
         infixList.clearList();
         postfixList.clearList();

@@ -22,6 +22,8 @@ public class CalculatorHistory implements Writable {
 
     public void addCalculation(Calculation newCalculation) {
         calculations.add(newCalculation);
+        EventLog.getInstance().logEvent(new Event("The calculation " + newCalculation.getExpression() + " = "
+                + newCalculation.getResult() + " has been added to history."));
     }
 
 
@@ -29,13 +31,18 @@ public class CalculatorHistory implements Writable {
     //EFFECTS: returns the mean of all the calculations performed so far.
     public double mean() {
         int i = 0;
+        double avg = 0;
         double sum = 0;
 
         for (i = 0; i < calculations.size(); i++) {
             sum += calculations.get(i).getResult();
         }
 
-        return sum / calculations.size();
+        avg = sum / calculations.size();
+
+        EventLog.getInstance().logEvent(new Event("The mean of the history is calculated to be " + avg));
+
+        return avg;
     }
 
     /*public double median() {
@@ -81,12 +88,16 @@ public class CalculatorHistory implements Writable {
     //EFFECTS: removes the calculation at the given index from the history.
     public void delete(int index) {
         calculations.remove(index - 1);
+
+        EventLog.getInstance().logEvent(new Event("The history entry at line number " + index + " was deleted"));
     }
 
     //MODIFIES: this
-    //EFFECTS: clears history. (resets this.calculations to no elements)
+    //EFFECTS: clears history. (resets this.calculations to zero elements)
     public void clearHistory() {
         calculations.clear();
+
+        EventLog.getInstance().logEvent(new Event("The history was completely cleared"));
     }
 
 

@@ -74,6 +74,8 @@ public class GraphicalApp implements ActionListener, WindowListener {
         initializeButtons();
         layoutButtons();
         renderSplashScreen();
+
+        setupScrollPane();
     }
 
 
@@ -86,7 +88,7 @@ public class GraphicalApp implements ActionListener, WindowListener {
         historyMenu = new JPopupMenu();
 
         setupFrame();
-        setupScrollPane();
+        //setupScrollPane();
         setupDisplay();
     }
 
@@ -110,11 +112,6 @@ public class GraphicalApp implements ActionListener, WindowListener {
         frame.setBackground(Color.BLUE);
     }
 
-    public void printLog(EventLog log) {
-        for (Event event : log) {
-            System.out.println(event.toString() + "\n");
-        }
-    }
 
     //MODIFIES: this
     //EFFECTS: sets up the scroll pane. Helper for initializeBasicElements()
@@ -445,8 +442,9 @@ public class GraphicalApp implements ActionListener, WindowListener {
     private void processClearHistory(ActionEvent event) {
         if (event.getSource() == buttonClearHistory) {
             display.setText("History Cleared");
-            this.evaluator = new ExpressionEvaluator();
-            this.history = evaluator.getHistory();
+//            this.evaluator = new ExpressionEvaluator();
+//            this.history = evaluator.getHistory();
+            history.clearHistory();
             historyMenu.setVisible(false);
         }
     }
@@ -549,6 +547,22 @@ public class GraphicalApp implements ActionListener, WindowListener {
         }
     }
 
+    //EFFECTS: prints the log onto console
+    public void printLog(EventLog log) {
+        System.out.println();
+
+        for (Event event : log) {
+            System.out.println(event.toString() + "\n");
+        }
+    }
+
+
+    @Override
+    //EFFECTS: prints the log onto console and exits the application
+    public void windowDeactivated(WindowEvent e) {
+        printLog(EventLog.getInstance());
+        System.exit(0);
+    }
 
     @Override
     public void windowOpened(WindowEvent e) {
@@ -578,11 +592,5 @@ public class GraphicalApp implements ActionListener, WindowListener {
     @Override
     public void windowActivated(WindowEvent e) {
         //nothing
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-        printLog(EventLog.getInstance());
-        System.exit(0);
     }
 }

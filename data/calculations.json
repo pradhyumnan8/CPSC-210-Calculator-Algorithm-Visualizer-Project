@@ -1,18 +1,30 @@
 {"calculations": [
     {
-        "result": 3325,
-        "expression": "3256+69"
+        "result": 7.922816251426434E28,
+        "expression": "2^96"
     },
     {
-        "result": 19950,
-        "expression": "3325.0*6"
+        "result": 4338,
+        "expression": "69*63-9"
     },
     {
-        "result": 3324,
-        "expression": "19944.0/6"
+        "result": 62.869565217391305,
+        "expression": "4338.0/69"
     },
     {
-        "result": 1.1048976E7,
-        "expression": "3324.0^2"
+        "result": 3952.5822306238188,
+        "expression": "62.869565217391305^2"
+    },
+    {
+        "result": 3958.5822306238188,
+        "expression": "3952.5822306238188+6"
+    },
+    {
+        "result": 0.5822306238187593,
+        "expression": "3958.5822306238188-3958"
+    },
+    {
+        "result": -8.41776937618124,
+        "expression": "0.5822306238187593-9"
     }
 ]}
