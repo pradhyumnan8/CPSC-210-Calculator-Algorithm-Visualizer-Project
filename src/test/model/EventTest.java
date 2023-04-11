@@ -28,8 +28,8 @@ public class EventTest {
 	@Test
 	public void testEvent() {
 		assertEquals("1+1", e.getDescription());
-        assertEquals(false, e.getDescription() == "hello");
-        assertEquals(false, e.getDescription() == null);
+        assertEquals(false, e.getDescription().equals("hello"));
+        assertEquals(false, e.getDescription().equals(null));
 		assertEquals(d.toString(), e.getDate().toString());
 	}
 
