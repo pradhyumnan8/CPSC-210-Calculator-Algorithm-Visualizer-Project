@@ -71,6 +71,10 @@ The calculation 6*5-3 = 27.0 has been added to history.
 Wed Apr 12 18:21:46 PDT 2023   
 The history was completely cleared
 
+The example log above demonstrates all possible log messages. Logs show records when a calculation is added  
+to the history (when a calculation is performed), when a single history entry is deleted, and also when the entire   
+history is cleared. Additonally, calculating the mean is also logged as an event. The logs show great detail by printing 
+exactly which calclation was added or deleted where applicable. Persistence events (saving and loading) are not logged. 
 
 ## Phase 4: Task 3
 
