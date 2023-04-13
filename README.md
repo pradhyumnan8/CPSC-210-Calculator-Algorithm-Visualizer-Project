@@ -17,7 +17,7 @@ the project but progress will be evident in the later phases of the project.
 
 **A list of features the application will include:**   
 - Expression solver with support for basic functions (+, -, /, *, ^). Single number calculations are not supported right 
-now (eg asking what is the result of "2" or "-2").
+now (eg. asking what is the result of "2" or "-2").
 - A history function that will allow you to view and select previous calculations 
 - Statistical functions (mean, median etc.) that can be run on your history.
   
@@ -48,10 +48,34 @@ now (eg asking what is the result of "2" or "-2").
 6. NOTE: Must press AC after any message (eg. "invalid expression", "history cleared" etc.)
 
 
-## Phase 4 Task 3 Design Refactoring
+## Phase 4: Task 2
 
-There are a few things that I would refactor if given extra time. The first thing that comes to mind is the choice of
-ArrayLists, LinkedLists, and Stacks used throughout the program. The choices are very inconsistent. When I started phase 1, I wanted  
+Wed Apr 12 18:21:10 PDT 2023   
+The calculation 12+2 = 14.0 has been added to history.
+
+Wed Apr 12 18:21:12 PDT 2023   
+The calculation 14.0-3 = 11.0 has been added to history.
+
+Wed Apr 12 18:21:13 PDT 2023   
+The calculation 11.0*6 = 66.0 has been added to history.
+
+Wed Apr 12 18:21:26 PDT 2023   
+The mean of the history is calculated to be 30.333333333333332
+
+Wed Apr 12 18:21:34 PDT 2023   
+The history entry at line number 2 was deleted
+
+Wed Apr 12 18:21:42 PDT 2023  
+The calculation 6*5-3 = 27.0 has been added to history.
+
+Wed Apr 12 18:21:46 PDT 2023   
+The history was completely cleared
+
+
+## Phase 4: Task 3
+
+There are a few things that I would refactor if given extra time. The first thing that comes to mind is the choice of ArrayLists,   
+LinkedLists, and Stacks used throughout the program. The choices are very inconsistent. When I started phase 1, I wanted  
 to learn how to create my own data structures starting from simple ones such as linked lists and stacks. I started by creating  
 the ExpressionNode class and wanted to implement this in a generic singly linked list (again, created by me) and extend that  
 off to a stack. The resulting stack and linked list were to be used anywhere appropriate, removing the need for Java's built in  
@@ -65,7 +89,18 @@ application. To implement this functionality, I have currently made my GUI class
 method currently requires a bunch of empty method implementations from the WindowListener Interface as I only make use of   
 the windowDeactivated() method. The refactoring I would do is to declare my current GUI class as abstract, then I would only have  
 to implement the windowDeactivated() method there. I would then create another GUI class which would extend my current   
-(made abstract) class. The new class would be practically empty and just be used for instantiation in  Main.main().
+(made abstract) class. The new class would be practically empty and just be used for instantiation in  Main.main(). Another   
+potential point of refactoring could be splitting the single GUI class into two classes. Right now, both the interface (eg. displaying  
+buttons), as well as the working (eg. performing action for that button) are handled by the single class which leads to sub-optimal  
+cohesion. These responsibilities can be split into multiple classes. Even within the UI portion of the GUI class, there is currently   
+a lot of code duplication. Each set of buttons all need to be initialized in practically the same manner but yet we are repeating the  
+same code many times. We can employ abstraction to bring these duplications down as well as introduce a more cohesive   
+"single point of control" design introduced in CPSC 110 (better coupling). For example, if we want our buttons to suddenly be focusable,   
+it will be far easier to make the necessary changes if the buttons were all initialized using a single method. Now, we would have to make   
+changes in multiple places.  
+
+One last change could be to use an iterator design pattern in the CalculatorHistory class so that we don't have to iterate over the internal  
+ArrayList in client applications. 
 
 
 

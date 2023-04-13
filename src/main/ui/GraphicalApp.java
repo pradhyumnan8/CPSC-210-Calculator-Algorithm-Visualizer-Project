@@ -564,31 +564,37 @@ public class GraphicalApp implements ActionListener, WindowListener {
     }
 
     @Override
+    //EFFECTS: Nothing, dummy implementation as every method from WindowListener interface has to be implemented.
     public void windowOpened(WindowEvent e) {
         //nothing
     }
 
     @Override
+    //EFFECTS: Nothing, dummy implementation as every method from WindowListener interface has to be implemented.
     public void windowClosing(WindowEvent e) {
         //nothing
     }
 
     @Override
+    //EFFECTS: Nothing, dummy implementation as every method from WindowListener interface has to be implemented.
     public void windowClosed(WindowEvent e) {
         //nothing
     }
 
     @Override
+    //EFFECTS: Nothing, dummy implementation as every method from WindowListener interface has to be implemented.
     public void windowIconified(WindowEvent e) {
         //nothing
     }
 
     @Override
+    //EFFECTS: Nothing, dummy implementation as every method from WindowListener interface has to be implemented.
     public void windowDeiconified(WindowEvent e) {
         //nothing
     }
 
     @Override
+    //EFFECTS: Nothing, dummy implementation as every method from WindowListener interface has to be implemented.
     public void windowActivated(WindowEvent e) {
         //nothing
     }
