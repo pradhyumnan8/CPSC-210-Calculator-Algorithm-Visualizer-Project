@@ -39,7 +39,7 @@ now (eg. asking what is the result of "2" or "-2").
 
 
 ## Instructions to use GUI:
-1. Click Play
+1. Run Main.main()
 2. Wait for start up screen to finish loading. 
 3. Use the calculator as you would any other calculator 
 4. Press the history button for history actions such as view, delete, clear, calculating mean etc. 
